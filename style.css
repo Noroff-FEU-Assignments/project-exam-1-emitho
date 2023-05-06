@@ -1,0 +1,189 @@
+/* Universal styles */
+
+* {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  font-family: inherit;
+  
+}
+
+
+.main-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: scroll;
+}
+
+main {
+  z-index: 5; /* the main section should overflow the hero image */
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Header */
+
+header {
+  position: fixed;
+  display: flex;
+  flex-shrink: 0;
+  height: 70px;
+  width: 100%;
+  z-index: 2;
+  
+}
+
+@media (max-width: 768px) {
+  header {
+    height: 70px;
+    padding: 0 10px;
+  }
+}
+
+.nav-container {
+}
+
+.nav-container, .nav-container ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-container ul {
+  gap: 20px;
+}
+
+.hamburger-menu {
+  display: none;
+}
+
+
+@media (max-width: 768px) {
+  .nav-container ul {
+    display: none;
+  }
+  .nav-container {
+    display: flex;
+  }
+  .nav-container .hamburger-menu {
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    padding: 10px;
+    margin-right: 10px;
+  }
+}
+
+/* Hero section */
+.hero-image {
+  position: relative;
+  margin-top: 70px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 600px/* set the appropriate value */;
+  z-index: 1;
+  background-image: url("https://i.pinimg.com/originals/45/5e/70/455e70719267d2cb46a757ac1331fd12.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.2); /* set the transparency value */
+  /* Other properties go here */
+}
+
+.logo-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.logo-container img {
+  width: /* set the appropriate width */;
+  height: /* set the appropriate height */;
+  opacity: /* set the appropriate value */;
+}
+
+
+/* Homepage blog-posts carousel */
+
+.carousel-container {
+  display: flex; /* Set the carousel container to a flex container */
+  flex-wrap: nowrap; /* Prevent the carousel items from wrapping */
+  overflow-x: auto; /* Allow horizontal scrolling for the carousel */
+  position: relative;
+  width: 100%;
+  height: 300px;
+}
+
+.carousel-track {
+  display: flex; /* Set the carousel track to a flex container */
+  transition: transform 0.4s ease-in-out; /* Add a smooth transition to the carousel track */
+}
+
+.carousel-item {
+  flex: 0 0 calc(25% - 20px); /* Set the width of each carousel item to 25% minus some margin or padding */
+  margin-right: 20px; /* Add margin or padding between each carousel item */
+  /* Add other styles for the carousel item, such as border, background-color, etc. */
+  
+}
+
+.carousel-control {
+  position: absolute; /* Position the carousel controls as absolute */
+  top: 50%; /* Center the carousel controls vertically */
+  transform: translateY(-50%); /* Adjust the vertical position of the carousel controls */
+}
+
+.carousel-control.prev {
+  left: 0; /* Position the previous button at the left edge of the container */
+}
+
+.carousel-control.next {
+  right: 0; /* Position the next button at the right edge of the container */
+}
+
+
+@media (max-width: 768px) {
+  .carousel-container {
+    flex-direction: column; /* Change the carousel layout to a vertical list */
+    overflow-x: hidden; /* Disable horizontal scrolling for the carousel */
+  }
+  
+  .carousel-track {
+    flex-direction: column; /* Change the direction of the carousel items to vertical */
+    transform: none; /* Reset the transform of the carousel track */
+  }
+  
+  .carousel-item {
+    flex: 0 0 auto; /* Reset the width of each carousel item */
+    margin-right: 0; /* Remove the margin or padding between each carousel item */
+    margin-bottom: 20px; /* Add margin or padding below each carousel item */
+  }
+  
+  .carousel-control {
+    position: static; /* Reset the position of the carousel controls */
+    transform: none; /* Reset the transform of the carousel controls */
+    margin: 10px auto 0; /* Add some spacing below the carousel track */
+  }
+  
+  .carousel-control.prev {
+    order: 2; /* Change the order of the previous button */
+  }
+  
+  .carousel-control.next {
+    order: 3; /* Change the order of the next button */
+  }
+}
+
+
+footer {
+  background-color: purple;
+  width: 100%;
+  height: 1000px;
+}
