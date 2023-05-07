@@ -1,9 +1,16 @@
 /* Universal styles */
 
+
+
 * {
   list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
+body {
+  background-color: white;
+}
 a {
   color: inherit;
   font-family: inherit;
@@ -14,38 +21,46 @@ a {
 .main-container {
   position: relative;
   display: flex;
+  z-index: 1;
   flex-direction: column;
-  height: 100vh;
-  overflow-y: scroll;
+  min-height: 100vh;
+  padding-top: 20px;
 }
 
 main {
-  z-index: 5; /* the main section should overflow the hero image */
+  z-index: 5;
   display: flex;
   flex-direction: column;
+  padding-top: 670px; /* Add padding equal to the hero image height + header height */
+
 }
 
 
 /* Header */
 
 header {
-  position: fixed;
   display: flex;
   flex-shrink: 0;
   height: 70px;
-  width: 100%;
-  z-index: 2;
+  z-index: 10;
   
 }
 
 @media (max-width: 768px) {
   header {
-    height: 70px;
     padding: 0 10px;
   }
 }
 
 .nav-container {
+  position: fixed;
+  top: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: white;
 }
 
 .nav-container, .nav-container ul {
@@ -57,6 +72,22 @@ header {
 
 .nav-container ul {
   gap: 20px;
+  
+}
+
+.nav-container ul.show {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background-color: green;
+  justify-content: space-evenly;
+}
+.nav-container ul.show li {
+  background-color: pink;
+  flex: 1;
 }
 
 .hamburger-menu {
@@ -82,20 +113,26 @@ header {
 
 /* Hero section */
 .hero-image {
-  position: relative;
-  margin-top: 70px;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  width: 100%;
+  height: 600px;
+  z-index: -1;
+}
+  .hero-image::before {
+  content: "";
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 600px/* set the appropriate value */;
-  z-index: 1;
+  height: 100%;
   background-image: url("https://i.pinimg.com/originals/45/5e/70/455e70719267d2cb46a757ac1331fd12.jpg");
   background-size: cover;
   background-position: center;
-  filter: brightness(0.2); /* set the transparency value */
-  /* Other properties go here */
+  filter: brightness(0.2);
+  z-index: -1;
 }
-
 .logo-container {
   position: absolute;
   top: 50%;
@@ -118,26 +155,51 @@ header {
   flex-wrap: nowrap; /* Prevent the carousel items from wrapping */
   overflow-x: auto; /* Allow horizontal scrolling for the carousel */
   position: relative;
+  justify-content: space-evenly;
   width: 100%;
-  height: 300px;
+  height: 280px;
+  background-color: aliceblue;
+  z-index: 5;
+  align-items: center;
 }
 
 .carousel-track {
   display: flex; /* Set the carousel track to a flex container */
   transition: transform 0.4s ease-in-out; /* Add a smooth transition to the carousel track */
+  justify-content: space-between;
+  gap: 2%;
+  height: 80%;
 }
 
 .carousel-item {
-  flex: 0 0 calc(25% - 20px); /* Set the width of each carousel item to 25% minus some margin or padding */
-  margin-right: 20px; /* Add margin or padding between each carousel item */
+  flex: 0 0 calc(15%); /* Set the width of each carousel item to 25% minus some margin or padding */
   /* Add other styles for the carousel item, such as border, background-color, etc. */
+  width: 25%;
   
+}
+.carousel-item:hover {
+  filter: brightness(1.5);
+
 }
 
 .carousel-control {
   position: absolute; /* Position the carousel controls as absolute */
   top: 50%; /* Center the carousel controls vertically */
   transform: translateY(-50%); /* Adjust the vertical position of the carousel controls */
+  background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent background */
+  border-radius: 50%; /* Make the buttons round */
+  width: 40px; /* Set the width of the buttons */
+  height: 40px; /* Set the height of the buttons */
+  display: flex; /* Set display to flex to center the icon */
+  justify-content: center; /* Center the icon horizontally */
+  align-items: center; /* Center the icon vertically */
+  cursor: pointer; /* Change the cursor to a pointer when hovering over the buttons */
+}
+
+.carousel-control:hover {
+  background-color: rgba(255, 255, 255, 1); /* Increase the opacity of the background on hover */
+  width: 48px; /* Increase the width of the buttons on hover */
+  height: 48px; /* Increase the height of the buttons on hover */
 }
 
 .carousel-control.prev {
@@ -185,5 +247,5 @@ header {
 footer {
   background-color: purple;
   width: 100%;
-  height: 1000px;
+  height: 500px;
 }

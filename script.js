@@ -13,6 +13,7 @@ hamburgerMenu.addEventListener('click', () => {
 
 const carouselTrack = document.querySelector('.carousel-track');
 const carouselItems = document.querySelectorAll('.carousel-item');
+const carouselContainer = document.querySelector('.carousel-container');
 const prevButton = document.querySelector('.carousel-control.prev');
 const nextButton = document.querySelector('.carousel-control.next');
 
