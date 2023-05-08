@@ -10,31 +10,28 @@ hamburgerMenu.addEventListener('click', () => {
 
 
 // Carousel functionality
-
 const carouselTrack = document.querySelector('.carousel-track');
 const carouselItems = document.querySelectorAll('.carousel-item');
-const carouselContainer = document.querySelector('.carousel-container');
 const prevButton = document.querySelector('.carousel-control.prev');
 const nextButton = document.querySelector('.carousel-control.next');
+const carouselContainer = document.querySelector('.carousel-container');
 
 let currentPosition = 0;
-const cardWidth = carouselItems[0].clientWidth;
-const cardMargin = parseInt(getComputedStyle(carouselItems[0]).marginRight);
+const visibleItems = 4;
+const cardWidth = carouselItems[0].clientWidth + 2 * parseInt(getComputedStyle(carouselItems[0]).marginRight);
 
-// Move the carousel track to the previous set of items
 function moveToPrev() {
-  currentPosition += (cardWidth + cardMargin) * 4;
+  currentPosition += cardWidth * visibleItems;
   if (currentPosition > 0) {
     currentPosition = 0;
   }
   carouselTrack.style.transform = `translateX(${currentPosition}px)`;
 }
 
-// Move the carousel track to the next set of items
 function moveToNext() {
   const trackWidth = carouselTrack.scrollWidth;
   const containerWidth = carouselContainer.clientWidth;
-  currentPosition -= (cardWidth + cardMargin) * 4;
+  currentPosition -= cardWidth * visibleItems;
   if (currentPosition < -(trackWidth - containerWidth)) {
     currentPosition = -(trackWidth - containerWidth);
   }
