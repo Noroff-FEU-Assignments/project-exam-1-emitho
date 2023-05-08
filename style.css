@@ -155,9 +155,16 @@ header {
 
 /* Homepage blog-posts carousel */
 
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .carousel-container {
   display: flex; /* Set the carousel container to a flex container */
   flex-wrap: nowrap; /* Prevent the carousel items from wrapping */
+  flex-grow: 1;
   overflow-x: auto; /* Allow horizontal scrolling for the carousel */
   position: relative;
   justify-content: space-evenly;
@@ -170,16 +177,16 @@ header {
 }
 
 .carousel-track {
-  display: flex; /* Set the carousel track to a flex container */
-  transition: transform 0.4s ease-in-out; /* Add a smooth transition to the carousel track */
+  display: flex; 
+  transition: transform 0.4s ease-in-out; 
   justify-content: space-between;
   gap: 2%;
   height: 80%;
 }
 
 .carousel-item {
-  flex: 0 0 calc(15%); /* Set the width of each carousel item to 25% minus some margin or padding */
-  /* Add other styles for the carousel item, such as border, background-color, etc. */
+  flex: 0 0 calc(15%);
+  
   width: 25%;
   
 }
@@ -188,25 +195,37 @@ header {
 
 }
 
-.carousel-control {
-  position: absolute; /* Position the carousel controls as absolute */
-  top: 50%; /* Center the carousel controls vertically */
-  transform: translateY(-50%); /* Adjust the vertical position of the carousel controls */
-  background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent background */
-  border-radius: 50%; /* Make the buttons round */
-  width: 40px; /* Set the width of the buttons */
-  height: 40px; /* Set the height of the buttons */
-  display: flex; /* Set display to flex to center the icon */
-  justify-content: center; /* Center the icon horizontally */
-  align-items: center; /* Center the icon vertically */
-  cursor: pointer; /* Change the cursor to a pointer when hovering over the buttons */
-  z-index: 10; /* Add a z-index value higher than the carousel items */
+.carousel-control { 
+  background-color: rgba(255, 255, 255, 0.8); 
+  border-radius: 50%; 
+  width: 40px; 
+  height: 40px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  cursor: pointer;
+  z-index: 10; 
+  position: static; 
+  pointer-events: auto; 
+  line-height: 0;
 }
 
 .carousel-control:hover {
-  background-color: rgba(255, 255, 255, 1); /* Increase the opacity of the background on hover */
-  width: 48px; /* Increase the width of the buttons on hover */
-  height: 48px; /* Increase the height of the buttons on hover */
+  background-color: rgba(255, 255, 255, 1); 
+  width: 48px; 
+  height: 48px; 
+}
+
+.arrow-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  pointer-events: none; 
 }
 
 .carousel-control.prev {
@@ -218,35 +237,50 @@ header {
 }
 
 
+
+
 @media (max-width: 768px) {
   .carousel-container {
     flex-direction: column; /* Change the carousel layout to a vertical list */
     overflow-x: hidden; /* Disable horizontal scrolling for the carousel */
+    position: relative;
   }
   
   .carousel-track {
     flex-direction: column; /* Change the direction of the carousel items to vertical */
     transform: none; /* Reset the transform of the carousel track */
+
   }
   
   .carousel-item {
-    flex: 0 0 auto; /* Reset the width of each carousel item */
-    margin-right: 0; /* Remove the margin or padding between each carousel item */
-    margin-bottom: 20px; /* Add margin or padding below each carousel item */
+    flex: 0 0 auto; 
+    margin-right: 0; 
+    margin-bottom: 20px; 
   }
   
   .carousel-control {
-    position: static; /* Reset the position of the carousel controls */
-    transform: none; /* Reset the transform of the carousel controls */
-    margin: 10px auto 0; /* Add some spacing below the carousel track */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 10;
   }
   
   .carousel-control.prev {
-    order: 2; /* Change the order of the previous button */
+    order: 2; 
+    left: -20px;
   }
   
   .carousel-control.next {
-    order: 3; /* Change the order of the next button */
+    order: 3; 
+    right: -20px;
   }
 }
 
@@ -257,7 +291,7 @@ header {
   display: flex;
   align-items: center;
   padding: 80px;
-  background-color: #f8f8f8; /* Change this to your desired background color */
+  background-color: #f8f8f8; 
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
   margin: 40px 100px;
