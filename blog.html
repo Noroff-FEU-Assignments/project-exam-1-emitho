@@ -3,17 +3,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="common.js"></script>
+    <script defer src="blog.js"></script>
+
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/simplePagination.css"
     />
-
-    <script defer src="script.js"></script>
-    <script
-      defer
-      src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"
-    ></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.js"></script>
     <title>Sovereign Horizon | Blog</title>
   </head>
   <body>
@@ -53,179 +52,216 @@
         </p>
       </div>
     </section>
-    <section class="blog-post-grid">
-      <div class="grid-container">
-        <!-- Replace each blog-post div with WordPress API stuff -->
-        <div class="blog-post">
-          <img src="images/richest-man-in-babylon.jpg.webp" alt="Blog Post" />
-          <h3>
-            Why 'The Richest Man in Babylon' is Essential Reading for Financial
-            Independence
-          </h3>
-          <p>Blog post excerpt...</p>
+
+    <div id="blog-posts-wrapper">
+      <button class="previous-button nav-button" disabled>Finance</button>
+      <button class="next-button nav-button">Story</button>
+      <section class="blog-post-grid">
+        <div id="pagination-wrapper">
+          <div class="grid-container">
+            <div class="blog-post">
+              <img
+                src="images/richest-man-in-babylon.jpg.webp"
+                alt="Blog Post"
+              />
+              <h3>
+                Why 'The Richest Man in Babylon' is Essential Reading for
+                Financial Independence
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img src="images/growing-your-own-food.jpeg" alt="Blog Post" />
+              <h3>Growing Your Own Food</h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img src="images/bitcoin-mining-energy.png" alt="Blog Post" />
+              <h3>
+                The Case for Off-the-Grid Energy Living with Bitcoin Mining
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img src="images/currency-crisis.jpg" alt="Blog Post" />
+              <h3>
+                This is the Only Explanation of the Bank & Currency Crisis You
+                Will Ever Need to Hear
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
+                alt="Blog
+              Post"
+              />
+              <h3>My Best Productivity Hack for iOS</h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/graphene-5.png"
+                alt="Blog
+              Post"
+              />
+              <h3>
+                Harnessing the Power of Open-Source Tools for Online Privacy and
+                Security
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/umbrel.jpeg.webp"
+                alt="Blog
+              Post"
+              />
+              <h3>Raspberry Pi Projects for Self-Sovereign Tech Enthusiasts</h3>
+              <p>Goodbye, big tech. Hello, server in your home.</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/meditech.jpg"
+                alt="Blog
+              Post"
+              />
+              <h3>
+                The Importance of Digital Minimalism in a Hyperconnected World
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/delete-IG.jpg"
+                alt="Blog
+              Post"
+              />
+              <h3>
+                Ditching Social Media: A Case Study on Reclaiming Time and
+                Mental Health
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/dream-home.jpeg"
+                alt="Blog
+              Post"
+              />
+              <h3>Buying Land With Self-Sovereignty in Mind</h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/cabin.jpg.webp"
+                alt="Blog
+              Post"
+              />
+              <h3>
+                The Ultimate Guide to Building an Off-Grid Cabin: Design,
+                Materials, and Techniques
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/grow-food-balcony.jpg.webp"
+                alt="Blog
+              Post"
+              />
+              <h3>
+                How to Create a Self-Sufficient Urban Garden on Your Apartment
+                Balcony
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/homeassistant.jpg.webp"
+                alt="Blog
+              Post"
+              />
+              <h3>
+                How to Set Up a Privacy-First Home Automation & Security System
+                with Open-Source Tools
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/bitcoin-software-stack.jpg"
+                alt="Blog
+              Post"
+              />
+              <h3>
+                How to Be Your Own Bank: A Comprehensive Guide to a 360-degree
+                'Bitcoin-Stack' for Beginners
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/mindfulnes.jpg"
+                alt="Blog
+              Post"
+              />
+              <h3>
+                The Power of Mindfulness Meditation for Personal Growth and
+                Mental Clarity
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/hydropower.jpg"
+                alt="Blog
+              Post"
+              />
+              <h3>How to Create a Self-Sustainable Energy System at Home</h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/Personal-brand.jpg"
+                alt="Blog
+              Post"
+              />
+              <h3>
+                A Guide to Developing and Managing Your Personal Brand Online
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/triple-citizenship.jpeg"
+                alt="Blog
+              Post"
+              />
+              <h3>
+                The Advantages of Dual & Triple Citizenship and How to Achieve
+                It
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+            <div class="blog-post">
+              <img
+                src="images/childrenjpg.jpg"
+                alt="Blog
+              Post"
+              />
+              <h3>
+                How to Give Your Children the Gift of Global Citizenship &
+                Multiple Languages
+              </h3>
+              <p>Blog post excerpt...</p>
+            </div>
+          </div>
+          <div id="pagination-container"></div>
+          <button class="load-more-button nav-button">Show more posts</button>
         </div>
-        <div class="blog-post">
-          <img src="images/growing-your-own-food.jpeg" alt="Blog Post" />
-          <h3>Growing Your Own Food</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img src="images/bitcoin-mining-energy.png" alt="Blog Post" />
-          <h3>The Case for Off-the-Grid Energy Living with Bitcoin Mining</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img src="images/currency-crisis.jpg" alt="Blog Post" />
-          <h3>
-            This is the Only Explanation of the Bank & Currency Crisis You Will
-            Ever Need to Hear
-          </h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
-            alt="Blog
-          Post"
-          />
-          <h3>My Best Productivity Hack for iOS</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/graphene-5.png"
-            alt="Blog
-          Post"
-          />
-          <h3>
-            Harnessing the Power of Open-Source Tools for Online Privacy and
-            Security
-          </h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/umbrel.jpeg.webp"
-            alt="Blog
-          Post"
-          />
-          <h3>Raspberry Pi Projects for Self-Sovereign Tech Enthusiasts</h3>
-          <p>Goodbye, big tech. Hello, server in your home.</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/meditech.jpg"
-            alt="Blog
-          Post"
-          />
-          <h3>
-            The Importance of Digital Minimalism in a Hyperconnected World
-          </h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/delete-IG.jpg"
-            alt="Blog
-          Post"
-          />
-          <h3>
-            Ditching Social Media: A Case Study on Reclaiming Time and Mental
-            Health
-          </h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/dream-home.jpeg"
-            alt="Blog
-          Post"
-          />
-          <h3>Buying Land With Self-Sovereignty in Mind</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
-            alt="Blog
-          Post"
-          />
-          <h3>My Best Productivity Hack for iOS</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
-            alt="Blog
-          Post"
-          />
-          <h3>My Best Productivity Hack for iOS</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
-            alt="Blog
-          Post"
-          />
-          <h3>My Best Productivity Hack for iOS</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
-            alt="Blog
-          Post"
-          />
-          <h3>My Best Productivity Hack for iOS</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
-            alt="Blog
-          Post"
-          />
-          <h3>My Best Productivity Hack for iOS</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
-            alt="Blog
-          Post"
-          />
-          <h3>My Best Productivity Hack for iOS</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
-            alt="Blog
-          Post"
-          />
-          <h3>My Best Productivity Hack for iOS</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
-            alt="Blog
-          Post"
-          />
-          <h3>My Best Productivity Hack for iOS</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-        <div class="blog-post">
-          <img
-            src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
-            alt="Blog
-          Post"
-          />
-          <h3>My Best Productivity Hack for iOS</h3>
-          <p>Blog post excerpt...</p>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
+    <footer></footer>
   </body>
 </html>

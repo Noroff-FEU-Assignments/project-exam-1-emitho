@@ -16,6 +16,7 @@ if (carouselItems.length > 0) {
       currentPosition = 0;
     }
     carouselTrack.style.transform = `translateX(${currentPosition}px)`;
+    checkArrows();
   }
 
   function moveToNext() {
@@ -26,16 +27,32 @@ if (carouselItems.length > 0) {
       currentPosition = -(trackWidth - containerWidth);
     }
     carouselTrack.style.transform = `translateX(${currentPosition}px)`;
+    checkArrows();
+  }
+
+  function checkArrows() {
+    if (currentPosition === 0) {
+      prevButton.disabled = true;
+    } else {
+      prevButton.disabled = false;
+    }
+  
+    const trackWidth = carouselTrack.scrollWidth;
+    const containerWidth = carouselContainer.clientWidth;
+  
+    if (currentPosition <= -(trackWidth - containerWidth - cardWidth * (visibleItems - 1))) {
+      nextButton.disabled = true;
+    } else {
+      nextButton.disabled = false;
+    }
   }
 
   // Add event listeners to the carousel controls
   prevButton.addEventListener('click', moveToPrev);
   nextButton.addEventListener('click', moveToNext);
-}
 
-// Add event listeners to the carousel controls
-prevButton.addEventListener('click', moveToPrev);
-nextButton.addEventListener('click', moveToNext);
+  checkArrows(); // Call this function once on load to disable the left arrow initially
+}
 
 // Function for the fade-up effect on contact card
 document.addEventListener("DOMContentLoaded", function () {

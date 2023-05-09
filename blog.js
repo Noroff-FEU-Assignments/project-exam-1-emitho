@@ -24,3 +24,18 @@ $(document).ready(function () {
 
   initialize();
 });
+
+// Carousel scroll functionality
+
+$(document).ready(function () {
+  let carouselItemWidth = $('.carousel-item').width();
+  let carouselContainer = $('#carousel-container');
+  
+  $('.carousel-control.next').click(function () {
+    carouselContainer.animate({ scrollLeft: '+=' + carouselItemWidth * 4 }, 400);
+  });
+  
+  $('.carousel-control.prev').click(function () {
+    carouselContainer.animate({ scrollLeft: '-=' + carouselItemWidth * 4 }, 400);
+  });
+});

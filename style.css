@@ -138,6 +138,7 @@ header {
   filter: brightness(0.2);
   z-index: -1;
 }
+
 .logo-container {
   position: absolute;
   top: 50%;
@@ -146,11 +147,9 @@ header {
   z-index: 2;
 }
 
-.logo-container img {
-  width: /* set the appropriate width */;
-  height: /* set the appropriate height */;
-  opacity: /* set the appropriate value */;
-}
+/* .logo-container img {
+  
+} */
 
 
 /* Homepage blog-posts carousel */
@@ -159,13 +158,13 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .carousel-container {
   display: flex; /* Set the carousel container to a flex container */
   flex-wrap: nowrap; /* Prevent the carousel items from wrapping */
   flex-grow: 1;
-  overflow-x: auto; /* Allow horizontal scrolling for the carousel */
   position: relative;
   justify-content: space-evenly;
   width: 100%;
@@ -174,30 +173,37 @@ header {
   z-index: 5;
   align-items: center;
   scroll-behavior: smooth;
+  overflow: hidden;
 }
 
 .carousel-track {
   display: flex; 
   transition: transform 0.4s ease-in-out; 
   justify-content: space-between;
-  gap: 2%;
+  gap: 0.5%;
   height: 80%;
 }
 
+
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
 .carousel-item {
-  flex: 0 0 calc(15%);
-  
   width: 25%;
-  
 }
 .carousel-item:hover {
-  filter: brightness(1.5);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 
 }
 
 .carousel-control { 
-  background-color: rgba(255, 255, 255, 0.8); 
-  border-radius: 50%; 
+  background-color: transparent;
+  border: none;
   width: 40px; 
   height: 40px; 
   display: flex; 
@@ -210,11 +216,7 @@ header {
   line-height: 0;
 }
 
-.carousel-control:hover {
-  background-color: rgba(255, 255, 255, 1); 
-  width: 48px; 
-  height: 48px; 
-}
+
 
 .arrow-container {
   display: flex;
@@ -236,6 +238,17 @@ header {
   right: 0; /* Position the next button at the right edge of the container */
 }
 
+.carousel-control:hover:not(:disabled) {
+  width: 40px;
+  height: 40px;
+}
+
+.carousel-control:disabled {
+  opacity: 0.3; /* Gray out the arrow */
+  cursor: not-allowed;
+  width: 30px; /* Make the arrow a bit smaller */
+  height: 30px;
+}
 
 
 
@@ -455,6 +468,11 @@ header {
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 2rem;
 }
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+}
 
 .blog-post {
   background-color: #f9f9f9;
@@ -466,6 +484,30 @@ header {
   width: 100%;
 
 }
+
+
+/* Navigation buttons for blog post grid */
+.nav-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: 0.3s;
+}
+.load-more-button {
+  display: block;
+  margin: 2rem auto;
+}
+
+.nav-button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+
 
 footer {
   background-color: purple;
