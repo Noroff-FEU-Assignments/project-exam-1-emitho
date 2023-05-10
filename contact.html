@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="contact.css" />
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Sovereign Horizon | Contact</title>
+    <script defer src="common.js"></script>
+    <script defer src="contact.js"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <button class="hamburger-menu">☰</button>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="contact-page form-container">
+      <h1>Contact Us</h1>
+      <form id="contact-form" class="contact-form">
+        <div class="input-container">
+          <label for="name">Name</label>
+          <input type="text" id="name" required />
+          <div class="error-message" id="name-error"></div>
+        </div>
+
+        <div class="input-container">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" required />
+          <div class="error-message" id="email-error"></div>
+        </div>
+
+        <div class="input-container">
+          <label for="reason">Reason for contacting:</label>
+          <select id="reason" required>
+            <option value="affiliate">
+              Affiliate and sponsorship inquiries
+            </option>
+            <option value="contribute">I want to contribute to the blog</option>
+            <option value="technical">Technical issue</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="input-container" id="subject-container">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" />
+          <div class="error-message" id="subject-error"></div>
+        </div>
+
+        <div class="input-container">
+          <label for="message">Message</label>
+          <textarea id="message" required></textarea>
+          <div class="error-message" id="message-error"></div>
+        </div>
+
+        <button type="submit">Submit</button>
+        <div class="success-animation" id="success-animation">
+          <div class="checkmark" id="checkmark"></div>
+          <div class="success-message" id="success-message">
+            Successfully sent
+          </div>
+        </div>
+      </form>
+    </div>
+    <footer></footer>
+  </body>
+</html>
