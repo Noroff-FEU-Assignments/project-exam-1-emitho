@@ -1,0 +1,67 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script defer src="js/common.js"></script>
+    <script defer src="js/blog-specific.js"></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/simplePagination.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/jquery.simplePagination.js"></script>
+    <title>Sovereign Horizon | Blog</title>
+  </head>
+  <body>
+    <header>
+      <nav class="nav-container">
+        <button class="hamburger-menu">☰</button>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <!-- Newsletter sign-up card -->
+    <section class="newsletter-signup">
+      <h2>Subscribe to our newsletter</h2>
+      <p>Get the latest blog posts and updates straight to your inbox!</p>
+      <form>
+        <input type="email" placeholder="Enter your email" required />
+        <button type="submit">Subscribe</button>
+      </form>
+    </section>
+
+    <div id="blog-posts-wrapper">
+      <button class="previous-button nav-button" disabled>Finance</button>
+      <button class="next-button nav-button">Story</button>
+      <section id="blog-specific-content">
+        <!-- Blog-specific content will be loaded here -->
+        <div class="article-image"></div>
+        <div id="image-modal" style="display: none">
+          <img id="modal-image" src="" alt="Modal Image" />
+        </div>
+      </section>
+    </div>
+    <footer>
+      <a href="https://pay.bbw.sv/sovereignhorizon"
+        ><p style="font-size: large; font-weight: 900">
+          Donate via ₿itcoin lightning ⚡️
+        </p>
+        <img style="width: 20rem" src="images/donate-lightning.png" alt=""
+      /></a>
+      <a href="mailto:hello@sovereignhorizon">hello@sovereignhorizon.com</a>
+      <a href="htts://www.twitter.com/sovereignhrzn"
+        ><img
+          src="images/2021 Twitter logo - black.png"
+          style="width: 11rem"
+          alt="Black Twitter bird logo"
+      /></a>
+    </footer>
+  </body>
+</html>
