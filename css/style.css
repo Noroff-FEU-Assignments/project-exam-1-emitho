@@ -45,75 +45,56 @@ main {
 
 header {
   display: flex;
+  background-color: #fff;
+  justify-content: space-between;
+  align-items: center;
   flex-shrink: 0;
   height: 70px;
   z-index: 10;
   width: 100%;
   position: fixed;
-
+  padding: 0 10px;
 }
 
-@media (max-width: 768px) {
-  header {
-    padding: 0 10px;
-  }
+.top-logo {
+  height: 100%;
 }
-
 .nav-container {
-  top: 0;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #fff;
-  width: 100%;
-
-}
-
-.nav-container, .nav-container ul {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
 }
 
 .nav-container ul {
-  gap: 20px;
-}
-
-.nav-container ul.show {
   display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background-color: green;
-  justify-content: space-evenly;
-}
-.nav-container ul.show li {
-  background-color: pink;
-  flex: 1;
+  gap: 20px;
 }
 
 .hamburger-menu {
   display: none;
 }
 
-
 @media (max-width: 768px) {
   .nav-container ul {
     display: none;
   }
-  .nav-container {
+
+  .nav-container ul.show {
     display: flex;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    background-color: #fff; 
+    z-index: 1;
+    text-align: center;
   }
-  .nav-container .hamburger-menu {
+  .hamburger-menu {
     display: block;
     text-align: center;
     font-size: 24px;
     padding: 10px;
-    margin-right: 10px;
+    margin-right: 25px;
   }
 }
 
@@ -148,12 +129,27 @@ header {
   z-index: 2;
 }
 
-/* .logo-container img {
-  
-} */
+@media (max-width: 768px) {
+  .logo-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo-container img {
+    width: 70%;
+  }
+ 
+}
 
 
 /* Homepage blog-posts carousel */
+
+.home-posts {
+  display: none;
+}
 
 .carousel-wrapper {
   display: flex;
@@ -335,6 +331,13 @@ header {
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
+@media (max-width: 768px) {
+  .card-content {
+    flex-direction: column;
+  }
+ }
+
+
 .profile-pic-container img {
   width: 240px; 
   height: 240px;
@@ -375,6 +378,12 @@ header {
 .twitter-timeline, .tweet-placeholder {
   z-index: 2;
   position: absolute;
+}
+
+@media (max-width: 768px) {
+  .latest-tweet {
+    display: none;
+  }
 }
 
 @keyframes placeHolderShimmer{
@@ -438,6 +447,7 @@ header {
   }
 }
 
+
 .latest-tweet {
   position: relative;
   width: 450px;
@@ -454,6 +464,7 @@ header {
   padding: 2rem;
   text-align: center;
   line-height: 1.6;
+  padding-top: 70px;
 }
 
 .newsletter-signup h2 {
@@ -517,8 +528,16 @@ header {
 @media (max-width: 768px) {
   .grid-container {
     grid-template-columns: 1fr;
+ }
+    .latest-post-excerpt {
+      display: none;
+    }
+    .latest-post-title {
+      font-size: 1rem;
+      margin: 0px 20px -20px -10px;
+     }
   }
-}
+
 
 .blog-post {
   background-color: #f9f9f9;
@@ -562,7 +581,64 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4rem;
+  text-align: center;
+  gap: 7%;
   font-size: 2rem;
 }
+footer a {
+  display: block;   
+  text-decoration: none;
+  color: inherit;
+}
 
+footer img {
+  max-width: 100%; 
+  height: auto;
+}
+
+
+/* Mobile styles */
+@media (max-width: 768px) {
+
+
+  .carousel-wrapper {
+    display: none;
+  }
+  
+  .home-posts {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+
+  .home-post img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .home-post img:hover {
+    transform: scale(1.05);
+  }
+
+  .contact-card {
+    flex-direction: column;
+    padding: 40px;
+    margin: 20px;
+    gap: 40px;
+  }
+  
+  footer {
+    flex-direction: column;
+    height: auto;
+    gap: 2rem;
+    font-size: 1.5rem;
+    width: 100%;
+    padding: 40px 0px 70px 0px;
+    
+  }
+}
