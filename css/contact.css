@@ -25,7 +25,7 @@ h1 {
 .input-container {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 0px;
   margin-bottom: 15px;
 }
 
@@ -34,7 +34,7 @@ textarea,
 select {
   width: 100%;
   padding: 12px 20px;
-  margin: 8px 0;
+  margin: 3px 0;
   display: inline-block;
   border: 1px solid #ccc;
   border-radius: 4px;
