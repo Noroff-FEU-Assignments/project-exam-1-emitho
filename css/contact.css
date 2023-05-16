@@ -18,10 +18,14 @@ body {
   z-index: 1;
 }
 
+h1 {
+  margin-bottom: 30px;
+}
+
 .input-container {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 1px;
   margin-bottom: 15px;
 }
 
