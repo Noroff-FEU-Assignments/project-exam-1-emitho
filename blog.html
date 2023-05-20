@@ -7,6 +7,7 @@
     <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script defer src="js/common.js"></script>
     <script defer src="js/blog.js"></script>
+    <script src="js/wordpress.js"></script>
 
     <link
       rel="stylesheet"
@@ -39,270 +40,23 @@
     </section>
 
     <!-- Latest blog post -->
-    <a href="blog-specific.html?postId=20">
-      <section class="latest-post">
-        <div class="latest-post-img">
-          <img src="images/openai.jpg" alt="Latest Post" />
-        </div>
-        <div class="latest-post-content">
-          <h2 class="latest-post-title">
-            While We're All Busy Admiring Chat-GPT, What Exactly is OpenAI's Sam
-            Altman up to in Argentina?
-          </h2>
-          <p class="latest-post-excerpt">
-            This is the starting paragraph of the latest blog post.
-          </p>
-        </div>
-      </section>
+    <a href="#" class="latest-post">
+      <div class="latest-post-img">
+        <img src="" alt="Latest Post" />
+      </div>
+      <div class="latest-post-content">
+        <h2 class="latest-post-title"></h2>
+        <p class="latest-post-excerpt"></p>
+      </div>
     </a>
 
     <div id="blog-posts-wrapper">
       <button class="previous-button nav-button" disabled>Finance</button>
       <button class="next-button nav-button">Story</button>
       <section class="blog-post-grid">
-        <div id="pagination-wrapper">
-          <div class="grid-container">
-            <a href="blog-specific.html?postId=19">
-              <div class="blog-post">
-                <img
-                  src="images/richest-man-in-babylon.jpg.webp"
-                  alt="Blog Post"
-                />
-                <h3>
-                  Why 'The Richest Man in Babylon' is Essential Reading for
-                  Financial Independence
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=18">
-              <div class="blog-post">
-                <img src="images/growing-your-own-food.jpeg" alt="Blog Post" />
-                <h3>Growing Your Own Food</h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=17">
-              <div class="blog-post">
-                <img src="images/bitcoin-mining-energy.png" alt="Blog Post" />
-                <h3>
-                  The Case for Off-the-Grid Energy Living with Bitcoin Mining
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=16">
-              <div class="blog-post">
-                <img src="images/currency-crisis.jpg" alt="Blog Post" />
-                <h3>
-                  This is the Only Explanation of the Bank & Currency Crisis You
-                  Will Ever Need to Hear
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=15">
-              <div class="blog-post">
-                <img
-                  src="images/My-Best-4-1-Productivity-Hack-for-iOS.jpeg"
-                  alt="Blog
-              Post"
-                />
-                <h3>My Best Productivity Hack for iOS</h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=14">
-              <div class="blog-post">
-                <img
-                  src="images/graphene-5.png"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  Harnessing the Power of Open-Source Tools for Online Privacy
-                  and Security
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=13">
-              <div class="blog-post">
-                <img
-                  src="images/umbrel.jpeg.webp"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  Raspberry Pi Projects for Self-Sovereign Tech Enthusiasts
-                </h3>
-                <p>Goodbye, big tech. Hello, server in your home.</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=12">
-              <div class="blog-post">
-                <img
-                  src="images/meditech.jpg"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  The Importance of Digital Minimalism in a Hyperconnected World
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=11">
-              <div class="blog-post">
-                <img
-                  src="images/delete-IG.jpg"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  Ditching Social Media: A Case Study on Reclaiming Time and
-                  Mental Health
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=10">
-              <div class="blog-post">
-                <img
-                  src="images/dream-home.jpeg"
-                  alt="Blog
-              Post"
-                />
-                <h3>Buying Land With Self-Sovereignty in Mind</h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=9">
-              <div class="blog-post">
-                <img
-                  src="images/cabin.jpg.webp"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  The Ultimate Guide to Building an Off-Grid Cabin: Design,
-                  Materials, and Techniques
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=8">
-              <div class="blog-post">
-                <img
-                  src="images/grow-food-balcony.jpg.webp"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  How to Create a Self-Sufficient Urban Garden on Your Apartment
-                  Balcony
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=7">
-              <div class="blog-post">
-                <img
-                  src="images/homeassistant.jpg.webp"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  How to Set Up a Privacy-First Home Automation & Security
-                  System with Open-Source Tools
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=6">
-              <div class="blog-post">
-                <img
-                  src="images/bitcoin-software-stack.jpg"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  How to Be Your Own Bank: A Comprehensive Guide to a 360-degree
-                  'Bitcoin-Stack' for Beginners
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=5">
-              <div class="blog-post">
-                <img
-                  src="images/mindfulnes.jpg"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  The Power of Mindfulness Meditation for Personal Growth and
-                  Mental Clarity
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=4">
-              <div class="blog-post">
-                <img
-                  src="images/hydropower.jpg"
-                  alt="Blog
-              Post"
-                />
-                <h3>How to Create a Self-Sustainable Energy System at Home</h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=3">
-              <div class="blog-post">
-                <img
-                  src="images/Personal-brand.jpg"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  A Guide to Developing and Managing Your Personal Brand Online
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=2">
-              <div class="blog-post">
-                <img
-                  src="images/triple-citizenship.jpeg"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  The Advantages of Dual & Triple Citizenship and How to Achieve
-                  It
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-            <a href="blog-specific.html?postId=1">
-              <div class="blog-post">
-                <img
-                  src="images/childrenjpg.jpg"
-                  alt="Blog
-              Post"
-                />
-                <h3>
-                  How to Give Your Children the Gift of Global Citizenship &
-                  Multiple Languages
-                </h3>
-                <p>Blog post excerpt...</p>
-              </div>
-            </a>
-          </div>
-          <div id="pagination-container"></div>
-          <button class="load-more-button nav-button">Show more posts</button>
-        </div>
+        <div class="grid-container"></div>
+        <div id="pagination-container"></div>
+        <button class="load-more-button nav-button">Show more posts</button>
       </section>
     </div>
     <footer>

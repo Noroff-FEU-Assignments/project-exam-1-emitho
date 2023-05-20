@@ -70,6 +70,14 @@ header {
 }
 .nav-container ul li a {
   text-decoration: none;
+  
+}
+
+.nav-container ul li:hover {
+  background-color: #000;
+  color: #F5F2E8;
+  transition: 0.3s;
+  
 }
 .hamburger-menu {
   display: none;
@@ -137,9 +145,20 @@ header {
   z-index: 2;
 }
 
+.reveal-button-container {
+  display: none;
+}
+
 @media (max-width: 768px) {
+
+  .hero-image {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
   .logo-container {
-    position: relative;
+    position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -148,6 +167,22 @@ header {
 
   .logo-container img {
     width: 70%;
+  }
+
+  .reveal-button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100px;
+    position: relative;
+    margin: 0px 20px 20px 0px
+    
+  }
+  .reveal-button-container a button {
+
+   background-color: transparent;
+   font-size: 24px;
+   border: none;
   }
  
 }

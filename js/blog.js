@@ -5,16 +5,21 @@ $(document).ready(function () {
 
   function showPosts(count) {
     const nextPosts = blogPosts.slice(currentPostIndex, currentPostIndex + count);
+    if (nextPosts.length === 0) {
+      // No more posts to show
+      $(".load-more-button").hide();
+      return;
+    }
     nextPosts.fadeIn().css("display", "grid");
     currentPostIndex += count;
-
+  
     if (currentPostIndex >= blogPosts.length) {
       $(".load-more-button").hide();
     }
   }
 
   function initialize() {
-    blogPosts.hide();
+    blogPosts
     showPosts(postsPerPage);
   }
 
