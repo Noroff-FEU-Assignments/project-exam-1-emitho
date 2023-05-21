@@ -12,7 +12,7 @@ function updateLatestPost(latestPost) {
 
 // Function to fetch the latest blog post from WordPress
 function fetchLatestPost() {
-  fetch('http://emilandret.sg-host.com/wp-json/wp/v2/posts?per_page=1&orderby=id&order=desc&_embed')
+  fetch(`${process.env.WORDPRESS_API_URL}/posts?per_page=1&orderby=id&order=desc&_embed`)
     .then(response => response.json())
     .then(data => {
       // Retrieve the latest post
@@ -43,7 +43,7 @@ function extractImageFromContent(content) {
 
 // Function to fetch all blog posts from WordPress
 function fetchAllPosts() {
-  fetch('http://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed')
+  fetch(`${process.env.WORDPRESS_API_URL}/posts?_embed`)
     .then(response => response.json())
     .then(data => {
       // Handle the retrieved posts data
@@ -102,8 +102,6 @@ function fetchAllPosts() {
       console.error(error);
     });
 }
-
-
 
 function initializeGrid() {
   const blogPosts = document.querySelectorAll('.blog-post');
