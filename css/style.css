@@ -12,6 +12,7 @@
 
 body {
   background-color: f9f9f9;
+  zoom: 0.8;
 }
 a {
   color: inherit;
@@ -644,7 +645,7 @@ footer img {
  
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 900px) {
   .latest-tweet {
     display: none;
   }
