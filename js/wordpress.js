@@ -12,7 +12,7 @@ function updateLatestPost(latestPost) {
 
 // Function to fetch the latest blog post from WordPress
 function fetchLatestPost() {
-  fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?per_page=1&orderby=id&order=desc&_embed%27')
+  fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?per_page=1&orderby=id&order=desc&_embed')
     .then(response => response.json())
     .then(data => {
       // Retrieve the latest post
@@ -43,7 +43,7 @@ function extractImageFromContent(content) {
 
 // Function to fetch all blog posts from WordPress
 function fetchAllPosts() {
-  fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed%27')
+  fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed')
     .then(response => response.json())
     .then(data => {
       // Handle the retrieved posts data

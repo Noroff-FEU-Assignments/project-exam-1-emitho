@@ -54,6 +54,47 @@ document.addEventListener('DOMContentLoaded', function() {
 
     checkArrows(); // Call this function once on load to disable the left arrow initially
   }
+
+  function fetchPostsAndUpdateCarousel() {
+    fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed')
+      .then(response => response.json())
+      .then(posts => {
+        const carouselTrack = document.querySelector('.carousel-track');
+        posts.forEach((post, index) => {
+          // Extract the featured image from the post data
+          let featuredImage;
+          if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url) {
+            featuredImage = post._embedded['wp:featuredmedia'][0].source_url;
+          }
+  
+          if (!featuredImage && post.content && post.content.rendered) {
+            const regex = /<img.*?src=['"](.*?)['"]/;
+            const match = regex.exec(post.content.rendered);
+            if (match && match[1]) {
+              featuredImage = match[1];
+            }
+          }
+  
+          if (!featuredImage) {
+            featuredImage = 'default-image.jpg';
+          }
+  
+          // Create a new carousel item and add it to the carousel
+          const carouselItem = document.createElement('img');
+          carouselItem.classList.add('carousel-item');
+          carouselItem.src = featuredImage;
+
+          carouselTrack.appendChild(carouselItem);
+        });
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error(error);
+      });
+  }
+
+  fetchPostsAndUpdateCarousel();
+
 });
 
 // Function for the fade-up effect on contact card
