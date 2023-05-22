@@ -114,6 +114,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
 });
 
+// Home post (mobile replacement for carousel)
+// Function definition
+function getImageFromPost(post) {
+    // Check if there is a featured image
+    if (post._embedded && post._embedded['wp:featuredmedia']) {
+        return post._embedded['wp:featuredmedia'][0].source_url;
+    }
+
+    // Check if there is an image in the content
+    const imgRegex = /<img[^>]+src="(http:\/\/[^">]+)"/g;
+    const match = imgRegex.exec(post.content.rendered);
+    if (match && match[1]) {
+        return match[1];
+    }
+
+    // If no image is found, return a default placeholder image
+    return "path/to/your/default/image.jpg";
+}
+
+// Event listener
+window.addEventListener('DOMContentLoaded', (event) => {
+    // Fetch posts from Wordpress API
+    fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed&per_page=3&orderby=date&order=desc')
+        .then(response => response.json())
+        .then(posts => {
+            // Get the home-posts div
+            const homePostsDiv = document.getElementById('home-posts');
+
+            // Create the HTML for each post
+            posts.forEach(post => {
+                const homePostDiv = document.createElement('div');
+                homePostDiv.className = 'home-post';
+
+                const postImageSrc = getImageFromPost(post);  // Call function here
+                const postImage = document.createElement('img');
+                postImage.src = postImageSrc;
+                postImage.alt = `Blog post ${posts.indexOf(post) + 1}`;
+
+                const postLink = document.createElement('a');  // New link element
+                postLink.href = `blog-specific.html?postId=${post.id}`;
+
+                const postTitle = document.createElement('h3');
+                postTitle.textContent = post.title.rendered;
+
+                postLink.appendChild(postTitle);  // Append the title to the link
+                homePostDiv.appendChild(postImage);
+                homePostDiv.appendChild(postLink);  // Append the link to the div
+
+                // Add the new post to the home-posts div
+                homePostsDiv.appendChild(homePostDiv);
+            });
+        })
+        .catch(err => console.log(err));
+});
+
 // Function for the fade-up effect on contact card
 document.addEventListener("DOMContentLoaded", function () {
   AOS.init({
