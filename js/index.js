@@ -88,6 +88,13 @@ document.addEventListener('DOMContentLoaded', function() {
           carouselItem.appendChild(imgElement);
           
           carouselTrack.appendChild(carouselItem);
+
+          window.addEventListener('resize', function() {
+            if (carouselItems.length > 0) {
+                cardWidth = carouselItems[0].clientWidth + 2 * parseInt(getComputedStyle(carouselItems[0]).marginRight);
+            }
+            checkArrows();
+        });
         });
 
         // Recalculate the carousel items and card width
@@ -113,6 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
     useClassNames: true,
     initClassName: false,
     animatedClassName: "aos-animate",
+    offset: -100, 
   });
 });
 
