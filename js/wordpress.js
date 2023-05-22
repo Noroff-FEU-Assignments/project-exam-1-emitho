@@ -52,7 +52,6 @@ function fetchAllPosts() {
       // Clear the existing blog posts
       blogPostsContainer.innerHTML = '';
 
-      // Fetch the latest post
       fetchLatestPost();
 
       // Loop through the posts data and create blog post elements

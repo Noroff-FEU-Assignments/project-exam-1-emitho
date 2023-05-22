@@ -1,59 +1,55 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Carousel functionality
   const carouselTrack = document.querySelector('.carousel-track');
-  const carouselItems = document.querySelectorAll('.carousel-item');
+  let carouselItems;
   const prevButton = document.querySelector('.carousel-control.prev');
   const nextButton = document.querySelector('.carousel-control.next');
   const carouselContainer = document.querySelector('.carousel-container');
 
-  if (carouselItems.length > 0) {
-    let currentPosition = 0;
-    const visibleItems = 4;
-    const cardWidth = carouselItems[0].clientWidth + 2 * parseInt(getComputedStyle(carouselItems[0]).marginRight);
+  let currentPosition = 0;
+  const visibleItems = 4;
+  let cardWidth;
 
-    function moveToPrev() {
-      currentPosition += cardWidth * visibleItems;
-      if (currentPosition > 0) {
-        currentPosition = 0;
-      }
-      carouselTrack.style.transform = `translateX(${currentPosition}px)`;
-      checkArrows();
+  function moveToPrev() {
+    currentPosition += cardWidth * visibleItems;
+    if (currentPosition > 0) {
+      currentPosition = 0;
     }
-
-    function moveToNext() {
-      const trackWidth = carouselTrack.scrollWidth;
-      const containerWidth = carouselContainer.clientWidth;
-      currentPosition -= cardWidth * visibleItems;
-      if (currentPosition < -(trackWidth - containerWidth)) {
-        currentPosition = -(trackWidth - containerWidth);
-      }
-      carouselTrack.style.transform = `translateX(${currentPosition}px)`;
-      checkArrows();
-    }
-
-    function checkArrows() {
-      if (currentPosition === 0) {
-        prevButton.disabled = true;
-      } else {
-        prevButton.disabled = false;
-      }
-
-      const trackWidth = carouselTrack.scrollWidth;
-      const containerWidth = carouselContainer.clientWidth;
-
-      if (currentPosition <= -(trackWidth - containerWidth - cardWidth * (visibleItems - 1))) {
-        nextButton.disabled = true;
-      } else {
-        nextButton.disabled = false;
-      }
-    }
-
-    // Add event listeners to the carousel controls
-    prevButton.addEventListener('click', moveToPrev);
-    nextButton.addEventListener('click', moveToNext);
-
-    checkArrows(); // Call this function once on load to disable the left arrow initially
+    carouselTrack.style.transform = `translateX(${currentPosition}px)`;
+    checkArrows();
   }
+
+  function moveToNext() {
+    const trackWidth = carouselTrack.scrollWidth;
+    const containerWidth = carouselContainer.clientWidth;
+    currentPosition -= cardWidth * visibleItems;
+    if (currentPosition < -(trackWidth - containerWidth)) {
+      currentPosition = -(trackWidth - containerWidth);
+    }
+    carouselTrack.style.transform = `translateX(${currentPosition}px)`;
+    checkArrows();
+  }
+
+  function checkArrows() {
+    if (currentPosition === 0) {
+      prevButton.disabled = true;
+    } else {
+      prevButton.disabled = false;
+    }
+
+    const trackWidth = carouselTrack.scrollWidth;
+    const containerWidth = carouselContainer.clientWidth;
+
+    if (currentPosition <= -(trackWidth - containerWidth)) {
+      nextButton.disabled = true;
+    } else {
+      nextButton.disabled = false;
+    }
+}
+
+  // Add event listeners to the carousel controls
+  prevButton.addEventListener('click', moveToPrev);
+  nextButton.addEventListener('click', moveToNext);
 
   function fetchPostsAndUpdateCarousel() {
     fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed')
@@ -66,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
           if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url) {
             featuredImage = post._embedded['wp:featuredmedia'][0].source_url;
           }
-  
+        
           if (!featuredImage && post.content && post.content.rendered) {
             const regex = /<img.*?src=['"](.*?)['"]/;
             const match = regex.exec(post.content.rendered);
@@ -74,18 +70,32 @@ document.addEventListener('DOMContentLoaded', function() {
               featuredImage = match[1];
             }
           }
-  
+        
           if (!featuredImage) {
             featuredImage = 'default-image.jpg';
           }
-  
+        
           // Create a new carousel item and add it to the carousel
-          const carouselItem = document.createElement('img');
+          const carouselItem = document.createElement('div');
           carouselItem.classList.add('carousel-item');
-          carouselItem.src = featuredImage;
-
+          
+          const imgElement = document.createElement('img');
+          imgElement.src = featuredImage;
+          imgElement.style.width = "100%";
+          imgElement.style.height = "100%";
+          imgElement.style.objectFit = "cover";
+          
+          carouselItem.appendChild(imgElement);
+          
           carouselTrack.appendChild(carouselItem);
         });
+
+        // Recalculate the carousel items and card width
+        carouselItems = document.querySelectorAll('.carousel-item');
+        if (carouselItems.length > 0) {
+          cardWidth = carouselItems[0].clientWidth + 2 * parseInt(getComputedStyle(carouselItems[0]).marginRight);
+        }
+        checkArrows();
       })
       .catch(error => {
         // Handle any errors
