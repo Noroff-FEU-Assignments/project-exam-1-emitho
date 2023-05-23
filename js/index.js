@@ -1,3 +1,9 @@
+// Define htmlDecode in the global scope so both event handlers can access it
+function htmlDecode(input) {
+  const doc = new DOMParser().parseFromString(input, "text/html");
+  return doc.documentElement.textContent;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
   // Carousel functionality
   const carouselTrack = document.querySelector('.carousel-track');
@@ -45,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       nextButton.disabled = false;
     }
-}
+  }
 
   // Add event listeners to the carousel controls
   prevButton.addEventListener('click', moveToPrev);
@@ -78,6 +84,16 @@ document.addEventListener('DOMContentLoaded', function() {
           // Create a new carousel item and add it to the carousel
           const carouselItem = document.createElement('div');
           carouselItem.classList.add('carousel-item');
+
+          const postLink = document.createElement('a');
+          postLink.href = `blog-specific.html?postId=${post.id}`;
+
+          const contentDiv = document.createElement('div');
+          contentDiv.classList.add('carousel-content');
+          
+          const titleElement = document.createElement('h3');
+          titleElement.classList.add('carousel-item-title');
+          titleElement.textContent = htmlDecode(post.title.rendered); // Use htmlDecode function
           
           const imgElement = document.createElement('img');
           imgElement.src = featuredImage;
@@ -85,16 +101,12 @@ document.addEventListener('DOMContentLoaded', function() {
           imgElement.style.height = "100%";
           imgElement.style.objectFit = "cover";
           
-          carouselItem.appendChild(imgElement);
+          contentDiv.appendChild(titleElement);
+          contentDiv.appendChild(imgElement);
+          postLink.appendChild(contentDiv);
+          carouselItem.appendChild(postLink);
           
           carouselTrack.appendChild(carouselItem);
-
-          window.addEventListener('resize', function() {
-            if (carouselItems.length > 0) {
-                cardWidth = carouselItems[0].clientWidth + 2 * parseInt(getComputedStyle(carouselItems[0]).marginRight);
-            }
-            checkArrows();
-        });
         });
 
         // Recalculate the carousel items and card width
@@ -115,59 +127,58 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Home post (mobile replacement for carousel)
-// Function definition
 function getImageFromPost(post) {
-    // Check if there is a featured image
-    if (post._embedded && post._embedded['wp:featuredmedia']) {
-        return post._embedded['wp:featuredmedia'][0].source_url;
-    }
+  // Check if there is a featured image
+  if (post._embedded && post._embedded['wp:featuredmedia']) {
+      return post._embedded['wp:featuredmedia'][0].source_url;
+  }
 
-    // Check if there is an image in the content
-    const imgRegex = /<img[^>]+src="(http:\/\/[^">]+)"/g;
-    const match = imgRegex.exec(post.content.rendered);
-    if (match && match[1]) {
-        return match[1];
-    }
+  // Check if there is an image in the content
+  const imgRegex = /<img[^>]+src="(http:\/\/[^">]+)"/g;
+  const match = imgRegex.exec(post.content.rendered);
+  if (match && match[1]) {
+      return match[1];
+  }
 
-    // If no image is found, return a default placeholder image
-    return "path/to/your/default/image.jpg";
+  // If no image is found, return a default placeholder image
+  return "path/to/your/default/image.jpg";
 }
 
-// Event listener
 window.addEventListener('DOMContentLoaded', (event) => {
-    // Fetch posts from Wordpress API
-    fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed&per_page=3&orderby=date&order=desc')
-        .then(response => response.json())
-        .then(posts => {
-            // Get the home-posts div
-            const homePostsDiv = document.getElementById('home-posts');
+  // Fetch posts from Wordpress API
+  fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed&per_page=3&orderby=date&order=desc')
+      .then(response => response.json())
+      .then(posts => {
+          // Get the home-posts div
+          const homePostsDiv = document.getElementById('home-posts');
 
-            // Create the HTML for each post
-            posts.forEach(post => {
-                const homePostDiv = document.createElement('div');
-                homePostDiv.className = 'home-post';
+          // Create the HTML for each post
+          posts.forEach(post => {
+              const homePostDiv = document.createElement('div');
+              homePostDiv.className = 'home-post';
 
-                const postImageSrc = getImageFromPost(post);  // Call function here
-                const postImage = document.createElement('img');
-                postImage.src = postImageSrc;
-                postImage.alt = `Blog post ${posts.indexOf(post) + 1}`;
+              const postImageSrc = getImageFromPost(post);  // Call function here
+              const postImage = document.createElement('img');
+              postImage.src = postImageSrc;
+              postImage.alt = `Blog post ${posts.indexOf(post) + 1}`;
 
-                const postLink = document.createElement('a');  // New link element
-                postLink.href = `blog-specific.html?postId=${post.id}`;
+              const postLink = document.createElement('a');  // New link element
+              postLink.href = `blog-specific.html?postId=${post.id}`;
 
-                const postTitle = document.createElement('h3');
-                postTitle.textContent = post.title.rendered;
+              const postTitle = document.createElement('h3');
+              postTitle.textContent = htmlDecode(post.title.rendered); // Use htmlDecode function
 
-                postLink.appendChild(postTitle);  // Append the title to the link
-                homePostDiv.appendChild(postImage);
-                homePostDiv.appendChild(postLink);  // Append the link to the div
+              postLink.appendChild(postTitle);  // Append the title to the link
+              homePostDiv.appendChild(postImage);
+              homePostDiv.appendChild(postLink);  // Append the link to the div
 
-                // Add the new post to the home-posts div
-                homePostsDiv.appendChild(homePostDiv);
-            });
-        })
-        .catch(err => console.log(err));
+              // Add the new post to the home-posts div
+              homePostsDiv.appendChild(homePostDiv);
+          });
+      })
+      .catch(err => console.log(err));
 });
+
 
 // Function for the fade-up effect on contact card
 document.addEventListener("DOMContentLoaded", function () {
