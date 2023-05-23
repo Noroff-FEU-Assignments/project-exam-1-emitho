@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
   const postsPerPage = 12;
   const blogPosts = $(".blog-post");

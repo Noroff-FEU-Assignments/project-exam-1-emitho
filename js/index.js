@@ -1,9 +1,3 @@
-// Define htmlDecode in the global scope so both event handlers can access it
-function htmlDecode(input) {
-  const doc = new DOMParser().parseFromString(input, "text/html");
-  return doc.documentElement.textContent;
-}
-
 document.addEventListener('DOMContentLoaded', function() {
   // Carousel functionality
   const carouselTrack = document.querySelector('.carousel-track');
@@ -58,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
   nextButton.addEventListener('click', moveToNext);
 
   function fetchPostsAndUpdateCarousel() {
-    fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed')
+    fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed&per_page=100')
       .then(response => response.json())
       .then(posts => {
         const carouselTrack = document.querySelector('.carousel-track');

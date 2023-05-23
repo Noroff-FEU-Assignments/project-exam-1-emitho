@@ -515,11 +515,17 @@ header {
 .latest-post {
   position: relative;
   line-height: 1.6;
+  
+}
+
+.latest-post-img {
+  position: relative;
+  overflow: hidden;
 }
 
 .latest-post-img img {
   width: 100%;
-  height: auto;
+  object-fit: cover;
 }
 
 .latest-post-content {

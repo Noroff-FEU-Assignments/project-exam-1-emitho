@@ -6,8 +6,11 @@ function updateLatestPost(latestPost) {
   const latestPostExcerpt = latestPostContainer.querySelector('.latest-post-excerpt');
 
   latestPostImg.src = latestPost.jetpack_featured_media_url;
-  latestPostTitle.textContent = latestPost.title.rendered;
+  latestPostTitle.textContent = htmlDecode(latestPost.title.rendered); 
   latestPostExcerpt.innerHTML = latestPost.excerpt.rendered;
+
+  // Call the function once to set the initial height
+  calculateImageHeight();
 }
 
 // Function to fetch the latest blog post from WordPress
@@ -41,9 +44,23 @@ function extractImageFromContent(content) {
   return '';
 }
 
+window.addEventListener('resize', calculateImageHeight);
+
+function calculateImageHeight() {
+  const latestPostImg = document.querySelector('.latest-post-img img');
+  const aspectRatioWidth = 433;
+  const aspectRatioHeight = 224;
+  const width = latestPostImg.offsetWidth;
+  const calculatedHeight = (width/aspectRatioWidth)*aspectRatioHeight;
+  latestPostImg.style.height = `${calculatedHeight}px`;
+}
+
+fetchLatestPost();
+
+
 // Function to fetch all blog posts from WordPress
 function fetchAllPosts() {
-  fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed')
+  fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed&per_page=100')
     .then(response => response.json())
     .then(data => {
       // Handle the retrieved posts data
@@ -57,19 +74,19 @@ function fetchAllPosts() {
       // Loop through the posts data and create blog post elements
       data.forEach((post, index) => {
         if (index === 0) return; // Skip the latest post
-
+      
         const postLink = document.createElement('a');
         postLink.href = `blog-specific.html?postId=${post.id}`;
         const postElement = document.createElement('div');
         postElement.classList.add('blog-post');
-
+      
         let featuredImage;
-
+      
         // Check if the post has a featured image in _embedded property
         if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url) {
           featuredImage = post._embedded['wp:featuredmedia'][0].source_url;
         }
-
+      
         // If featured image is not available, extract image URL from content.rendered property using regex
         if (!featuredImage && post.content && post.content.rendered) {
           const regex = /<img.*?src=['"](.*?)['"]/;
@@ -78,20 +95,20 @@ function fetchAllPosts() {
             featuredImage = match[1];
           }
         }
-
+      
         // Use a default image if no featured image is available
         if (!featuredImage) {
           featuredImage = 'default-image.jpg';
         }
-
+      
         postElement.innerHTML = `
           <img src="${featuredImage}" alt="Blog Post" />
-          <h3>${post.title.rendered}</h3>
+          <h3>${htmlDecode(post.title.rendered)}</h3> 
           <p>${post.excerpt.rendered}</p>
         `;
-
+      
         postLink.appendChild(postElement);
-
+      
         // Add the post to the blog post grid
         blogPostsContainer.appendChild(postLink);
       });
