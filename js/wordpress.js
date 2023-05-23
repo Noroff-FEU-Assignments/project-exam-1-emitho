@@ -100,12 +100,31 @@ function fetchAllPosts() {
         if (!featuredImage) {
           featuredImage = 'default-image.jpg';
         }
-      
+
+
+        // Function to limit text excerpt to certain length
+        const excerpt = $(post.excerpt.rendered).text(); 
+        const truncatedExcerpt = truncateExcerpt(excerpt, 30);
+
+        function truncateExcerpt(excerpt, limit) {
+          const words = excerpt.split(' ');
+
+          if (words.length > limit) {
+            return words.slice(0, limit).join(' ') + '...';
+          }
+
+          return excerpt;
+        } 
+
         postElement.innerHTML = `
+        <div class="blog-post-img">
           <img src="${featuredImage}" alt="Blog Post" />
-          <h3>${htmlDecode(post.title.rendered)}</h3> 
-          <p>${post.excerpt.rendered}</p>
-        `;
+          <div class="blog-post-overlay">
+            <p class="blog-post-excerpt">${truncatedExcerpt}</p>
+          </div>
+        </div>
+        <h3 class="blog-post-title">${htmlDecode(post.title.rendered)}</h3>
+      `;
       
         postLink.appendChild(postElement);
       

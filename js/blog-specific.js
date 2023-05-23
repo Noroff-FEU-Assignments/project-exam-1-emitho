@@ -13,18 +13,36 @@ if (postId) {
     .then(response => response.json())
     .then(data => {
       const blogPostContent = document.getElementById('blog-specific-content');
+      const articleImage = document.querySelector('.article-image');
+
+      articleImage.style.backgroundImage = `url(${data.featured_image_url})`;
 
       // Update the blog-specific content section
       blogPostContent.innerHTML = `
         <h2>${data.title.rendered}</h2>
         <div>${data.content.rendered}</div>
       `;
+
+      // add click listener to articleImage
+      articleImage.addEventListener('click', () => {
+        const modal = document.querySelector('.image-modal');
+        const modalImage = document.querySelector('.modal-image');
+
+        modalImage.style.backgroundImage = articleImage.style.backgroundImage;
+        modal.style.display = 'flex';
+      });
     })
     .catch(error => {
       // Handle any errors
       console.error(error);
     });
 }
+
+document.querySelector('.image-modal').addEventListener('click', () => {
+  const modal = document.querySelector('.image-modal');
+  modal.style.display = 'none';
+});
+
 
 // Modal
 document.querySelectorAll('.article-image').forEach((imgContainer) => {
