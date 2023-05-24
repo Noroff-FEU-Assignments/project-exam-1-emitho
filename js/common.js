@@ -12,13 +12,3 @@ hamburgerMenu.addEventListener('click', () => {
   navMenu.classList.toggle('show');
 });
 
-// Function to limit text excerpt to certain length
-function truncateExcerpt(excerpt, limit) {
-  const words = excerpt.split(' ');
-
-  if (words.length > limit) {
-    return words.slice(0, limit).join(' ') + '...';
-  }
-
-  return excerpt;
-}

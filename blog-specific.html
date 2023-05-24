@@ -4,12 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="css/style.css" />
 
-    <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script defer src="js/common.js"></script>
-    <script defer src="js/blog-specific.js"></script>
-
-    <script defer src="js/wordpress.js"></script>
-
+  
+    <script src="js/blog-specific.js"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/simplePagination.js/1.6/simplePagination.css"
@@ -45,10 +41,13 @@
       <button class="next-button nav-button">Story</button>
       <section id="blog-specific-content">
         <!-- Blog-specific content will be loaded here -->
-        <div class="article-image"></div>
-        <div class="image-modal" style="display: none">
-          <div class="modal-image"></div>
-        </div>
+      </section>
+      <div id="myModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="img01" />
+        <div id="caption"></div>
+      </div>
+    </div>
       </section>
     </div>
     <footer>

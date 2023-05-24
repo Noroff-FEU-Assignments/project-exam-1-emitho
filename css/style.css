@@ -50,7 +50,7 @@ header {
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
-  height: 70px;
+  height: 110px;
   z-index: 10;
   width: 100%;
   position: fixed;
@@ -59,7 +59,9 @@ header {
 
 .top-logo {
   height: 100%;
+  padding: 5px 0px 5px 0px;
 }
+
 .nav-container {
   display: flex;
   align-items: center;
@@ -552,6 +554,13 @@ header {
 
 .latest-post-excerpt {
   display: none;
+  color: white;
+  font-size: 4vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%; 
 }
 
 .latest-post:hover .latest-post-excerpt {
@@ -573,14 +582,17 @@ header {
 
 .latest-post-overlay {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
-  transform: translateY(100%);
+  bottom: 0;
   transition: transform 0.5s ease-in-out;
   background-color: transparent; 
   padding: 10px; 
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -603,23 +615,26 @@ header {
   .grid-container {
     grid-template-columns: 1fr;
  }
-    .latest-post-excerpt {
-      display: none;
-    }
-    .latest-post-title {
-      font-size: 1rem;
-      margin: 0px 20px -20px -10px;
-     }
+ .latest-post-excerpt,
+ .latest-post-img::before,
+ .blog-post-img::before {
+   display: none !important;
+ }
 
-     .blog-post-title {
-      font-size: 1rem;
-      margin-bottom: 1rem;
+  .latest-post-title {
+    font-size: 1rem;
+    margin: 0px 20px -20px -10px;
     }
-  
-    .blog-post-overlay,
-    .blog-post-excerpt {
-      display: none;
-    }
+
+    .blog-post-title {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .blog-post-overlay,
+  .blog-post-excerpt {
+    display: none !important;
+  }
   }
 
 
@@ -726,6 +741,13 @@ header {
   font-size: 18px;
 }
 
+#blog-specific-content figure img {
+  object-fit: cover;
+  width: 100%;
+  height: 400px;
+}
+
+
 #blog-specific-content h2 {
   margin-bottom: 1rem;
   font-size: 2rem;
@@ -734,22 +756,60 @@ header {
 
 .article-image {
   width: 100%;
-  height: 400px;
-  margin-bottom: 1rem;
+  height: 0;
+  padding-bottom: 56.25%;
   background-size: cover;
   background-position: center;
 }
 
-.modal-image {
+.article-image img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal {
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 18%;
+  left: 0;
+  top: 0;
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.9); 
+}
+
+.modal-content {
+  margin: auto;
+  display: block;
   width: 80%;
-  height: 80%;
-  background-size: cover;
-  background-position: center;
+  max-width: 700px;
+
 }
 
-#image-modal img {
-  max-width: 90%;
-  max-height: 90%;
+.close {
+  position: absolute;
+  top: 2%;
+  right: 2%;
+  color: white;
+  font-size: 40px;
+  font-weight: bold;
+  transition: 0.3s;
+  z-index: 10;
+}
+
+
+.close:hover,
+.close:focus {
+  color: #bbb;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 

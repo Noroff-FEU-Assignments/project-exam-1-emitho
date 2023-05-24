@@ -7,56 +7,59 @@ function getQueryStringValue(key) {
 // Get the postId from the URL query parameter
 const postId = getQueryStringValue('postId');
 
+
+function openModal(imageSrc) {
+  // Get the modal
+  const modal = document.getElementById('myModal');
+  
+  // Get the image and insert it inside the modal
+  const img = document.getElementById('img01');
+  
+  // Use the same src as the clicked image
+  img.src = imageSrc;
+  
+  // Show the modal
+  modal.style.display = "block"
+  ;
+}
+function closeModal() {
+  const modal = document.getElementById('myModal');
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  const modal = document.getElementById('myModal');
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+
 // Fetch and display the specific blog post content
+
+
 if (postId) {
   fetch(`https://emilandret.sg-host.com/wp-json/wp/v2/posts/${postId}`)
     .then(response => response.json())
     .then(data => {
       const blogPostContent = document.getElementById('blog-specific-content');
-      const articleImage = document.querySelector('.article-image');
-
-      articleImage.style.backgroundImage = `url(${data.featured_image_url})`;
-
+      
       // Update the blog-specific content section
       blogPostContent.innerHTML = `
         <h2>${data.title.rendered}</h2>
         <div>${data.content.rendered}</div>
       `;
 
-      // add click listener to articleImage
-      articleImage.addEventListener('click', () => {
-        const modal = document.querySelector('.image-modal');
-        const modalImage = document.querySelector('.modal-image');
-
-        modalImage.style.backgroundImage = articleImage.style.backgroundImage;
-        modal.style.display = 'flex';
-      });
+      // Get the first image in the blog post content
+      const firstImage = blogPostContent.querySelector('img');
+      if (firstImage) {
+        // Add the onclick event to the first image
+        firstImage.onclick = function() {
+          openModal(firstImage.src);
+        };
+      }
     })
     .catch(error => {
       // Handle any errors
       console.error(error);
     });
 }
-
-document.querySelector('.image-modal').addEventListener('click', () => {
-  const modal = document.querySelector('.image-modal');
-  modal.style.display = 'none';
-});
-
-
-// Modal
-document.querySelectorAll('.article-image').forEach((imgContainer) => {
-  imgContainer.addEventListener('click', (event) => {
-    const imageUrl = event.target.src;
-    const modal = document.getElementById('image-modal');
-    const modalImage = document.getElementById('modal-image');
-
-    modalImage.src = imageUrl;
-    modal.style.display = 'block';
-  });
-});
-
-document.getElementById('image-modal').addEventListener('click', () => {
-  const modal = document.getElementById('image-modal');
-  modal.style.display = 'none';
-});
