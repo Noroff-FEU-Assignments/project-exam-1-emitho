@@ -118,6 +118,11 @@ header {
     -moz-appearance: none; /* for Firefox */
     appearance: none;  /* the standard syntax */
   }
+
+  .hamburger-menu,
+  .reveal-button-container a button {
+  -webkit-tap-highlight-color: transparent;
+}
 }
 
 /* Hero section */
@@ -585,7 +590,9 @@ header {
   border-radius: 5px;
   padding-left: 1vh;
   z-index: 2; 
-  width: calc(100% - 4rem);  /* subtracting left and right margins */
+  /* width: calc(100% - 4rem);  subtracting left and right margins */
+  display: inline-block;
+
 }
 
 .latest-post-overlay {
