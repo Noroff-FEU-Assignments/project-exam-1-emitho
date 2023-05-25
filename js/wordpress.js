@@ -102,7 +102,7 @@ function fetchAllPosts() {
 
         // Function to limit text excerpt to certain length
         const excerpt = $(post.excerpt.rendered).text(); 
-        const truncatedExcerpt = truncateExcerpt(excerpt, 30);
+        const truncatedExcerpt = truncateExcerpt(excerpt, 20);
 
         function truncateExcerpt(excerpt, limit) {
           const words = excerpt.split(' ');

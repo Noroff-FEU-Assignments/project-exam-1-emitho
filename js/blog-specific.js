@@ -19,19 +19,29 @@ function openModal(imageSrc) {
   img.src = imageSrc;
   
   // Show the modal
-  modal.style.display = "block"
-  ;
+  modal.style.display = "block";
 }
+
 function closeModal() {
   const modal = document.getElementById('myModal');
   modal.style.display = "none";
 }
 
-window.onclick = function(event) {
+// Bind both 'click' and 'touchstart' events to the window for closing the modal
+window.addEventListener('click', function(event) {
   const modal = document.getElementById('myModal');
   if (event.target == modal) {
-    modal.style.display = "none";
+    closeModal();
   }
+});
+
+if ('ontouchstart' in window) {
+  window.addEventListener('touchstart', function(event) {
+    const modal = document.getElementById('myModal');
+    if (event.target == modal) {
+      closeModal();
+    }
+  });
 }
 
 // Fetch and display the specific blog post content

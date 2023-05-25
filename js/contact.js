@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
+  emailjs.init('UZzT200mytGe1hMXE');
+
   const contactForm = document.getElementById('contact-form');
   const nameInput = document.getElementById('name');
   const nameError = document.getElementById('name-error');
@@ -62,6 +64,8 @@ document.addEventListener('DOMContentLoaded', function () {
   function showSuccessAnimation() {
     submitButton.innerHTML = '&#x2714;';
     submitButton.style.backgroundColor = 'green';
+    submitButton.disabled = true;
+    Array.from(contactForm.elements).forEach(element => element.disabled = true);
   
     setTimeout(() => {
       submitButton.textContent = 'Successfully sent';
@@ -70,6 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   updateSubjectInputVisibility();
+  reasonSelect.addEventListener('change', updateSubjectInputVisibility);
 
   contactForm.addEventListener('submit', function (event) {
     event.preventDefault();
@@ -80,16 +85,28 @@ document.addEventListener('DOMContentLoaded', function () {
       validateSubject() &&
       validateMessage()
     ) {
-      showSuccessAnimation();
+      var messageBody = "From: " + nameInput.value + "\n"
+                + "Email: " + emailInput.value + "\n\n"
+                + "Subject: " + subjectInput.value + reasonSelect.value + "\n\n"
+                + "Message:\n" 
+                + messageInput.value;
+
+      emailjs.send("service_zskmxok", "template_s41qkcw", {
+        from_name: nameInput.value,
+        from_email: emailInput.value,
+        subject: reasonSelect.value === 'other' ? subjectInput.value : reasonSelect.value,
+        message: messageBody,
+        to_name: "Emil Thorsplass",
+        to_email: "hello@sovereignhorizon.com",
+      }).then(function(response) {
+        if (response.status === 200) {
+          showSuccessAnimation();
+        }
+      }, function(err) {
+        // Handle error case here
+        console.error(err);
+      });
     }
   });
-
-  nameInput.addEventListener('input', validateName);
-  emailInput.addEventListener('input', validateEmail);
-  reasonSelect.addEventListener('change', function () {
-    updateSubjectInputVisibility();
-    validateSubject();
-  });
-  subjectInput.addEventListener('input', validateSubject);
-  messageInput.addEventListener('input', validateMessage);
 });
+
