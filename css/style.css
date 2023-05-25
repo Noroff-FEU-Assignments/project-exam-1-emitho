@@ -50,7 +50,7 @@ header {
   justify-content: space-between;
   align-items: center;
   flex-shrink: 0;
-  height: 110px;
+  height: 70px;
   z-index: 10;
   width: 100%;
   position: fixed;
@@ -58,7 +58,7 @@ header {
 }
 
 .top-logo {
-  height: 100%;
+  height: 90%;
   padding: 5px 0px 5px 0px;
 }
 
@@ -733,18 +733,31 @@ header {
 /* Blog specific page */
 
 #blog-specific-content {
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
   padding: 2rem 1rem;
   color: #333;
   line-height: 1.6;
   font-size: 18px;
+  background-color: #f8f4f4;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  margin-bottom: 50px;
 }
 
 #blog-specific-content figure img {
+  position: absolute;
   object-fit: cover;
   width: 100%;
-  height: 400px;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+#blog-specific-content figure {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  margin-bottom: 30px;
 }
 
 
@@ -775,7 +788,6 @@ header {
   display: none; 
   position: fixed; 
   z-index: 1; 
-  padding-top: 18%;
   left: 0;
   top: 0;
   width: 100%; 
@@ -783,13 +795,18 @@ header {
   overflow: auto; 
   background-color: rgb(0,0,0); 
   background-color: rgba(0,0,0,0.9); 
+  align-items: center;
+  justify-content: center; 
 }
 
 .modal-content {
   margin: auto;
   display: block;
-  width: 80%;
-  max-width: 700px;
+  width: 65%;
+  max-width: none;
+  position: relative;
+  top: 55%;
+  transform: translateY(-50%);
 
 }
 
@@ -801,13 +818,13 @@ header {
   font-size: 40px;
   font-weight: bold;
   transition: 0.3s;
-  z-index: 10;
+  z-index: 100;
 }
 
 
 .close:hover,
 .close:focus {
-  color: #bbb;
+ color: #bbb;
   text-decoration: none;
   cursor: pointer;
 }
@@ -886,6 +903,9 @@ footer img {
     align-self: end;
   }
   
+  .modal-content {
+    width: 100%;
+  }
  
 }
 
