@@ -57,7 +57,6 @@ function calculateImageHeight() {
 
 fetchLatestPost();
 
-
 // Function to fetch all blog posts from WordPress
 function fetchAllPosts() {
   fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed&per_page=100')
@@ -73,7 +72,7 @@ function fetchAllPosts() {
 
       // Loop through the posts data and create blog post elements
       data.forEach((post, index) => {
-        if (index === 0) return; // Skip the latest post
+        if (index === 0) return; // Skip the latest post because it should be shown in latest post element instead
       
         const postLink = document.createElement('a');
         postLink.href = `blog-specific.html?postId=${post.id}`;
@@ -101,7 +100,6 @@ function fetchAllPosts() {
           featuredImage = 'default-image.jpg';
         }
 
-
         // Function to limit text excerpt to certain length
         const excerpt = $(post.excerpt.rendered).text(); 
         const truncatedExcerpt = truncateExcerpt(excerpt, 30);
@@ -124,13 +122,16 @@ function fetchAllPosts() {
           </div>
         </div>
         <h3 class="blog-post-title">${htmlDecode(post.title.rendered)}</h3>
-      `;
+        `;
       
         postLink.appendChild(postElement);
       
         // Add the post to the blog post grid
         blogPostsContainer.appendChild(postLink);
       });
+
+      // Trigger a custom event to notify that all blog posts have been added
+      document.dispatchEvent(new Event('allPostsAdded'));
     })
     .catch(error => {
       // Handle any errors
@@ -140,12 +141,4 @@ function fetchAllPosts() {
 
 
 
-function initializeGrid() {
-  const blogPosts = document.querySelectorAll('.blog-post');
-  blogPosts.forEach((post, index) => {
-    post.style.gridArea = `post${index + 1}`;
-  });
-}
-
-// Call the function to fetch all blog posts from WordPress
 fetchAllPosts();
