@@ -578,6 +578,7 @@ header {
   border-radius: 5px;
   padding-left: 1vh;
   z-index: 2; 
+  width: 90%;
 }
 
 .latest-post-overlay {
