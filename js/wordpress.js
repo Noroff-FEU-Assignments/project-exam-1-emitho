@@ -1,3 +1,22 @@
+// Function to decode HTML entities
+function htmlDecode(input) {
+  const doc = new DOMParser().parseFromString(input, "text/html");
+  return doc.documentElement.textContent;
+}
+
+// Function to fetch the categories of a post
+function fetchPostCategories(post) {
+  return fetch(`https://emilandret.sg-host.com/wp-json/wp/v2/categories?include=${post.categories.join(',')}`)
+    .then(response => response.json())
+    .then(categories => {
+      const categoryButtons = categories.map((category, index) => {
+        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}">${category.name}</button>`;
+      }).join('');
+      return categoryButtons;
+    })
+    .catch(error => console.error(error));
+}
+
 // Function to update the latest post section
 function updateLatestPost(latestPost) {
   const latestPostContainer = document.querySelector('.latest-post');
@@ -6,12 +25,33 @@ function updateLatestPost(latestPost) {
   const latestPostExcerpt = latestPostContainer.querySelector('.latest-post-excerpt');
 
   latestPostImg.src = latestPost.jetpack_featured_media_url;
-  latestPostTitle.textContent = htmlDecode(latestPost.title.rendered); 
+  latestPostTitle.textContent = htmlDecode(latestPost.title.rendered);
   latestPostExcerpt.innerHTML = latestPost.excerpt.rendered;
+
+  // Fetch the categories of the latest post and add them to the page
+  fetchPostCategories(latestPost)
+    .then(categoryButtons => {
+      if (categoryButtons) {
+        const categoryContainer = document.querySelector('.latest-post .category-container');
+        
+        if (!categoryContainer) {
+          const newCategoryContainer = document.createElement('div');
+          newCategoryContainer.classList.add('category-container');
+          newCategoryContainer.innerHTML = categoryButtons;
+        
+          // Get the 'latest-post-overlay' div and append the categories to it
+          const overlayContainer = latestPostContainer.querySelector('.latest-post-overlay');
+          overlayContainer.appendChild(newCategoryContainer);
+        }
+      }
+    });
 
   // Call the function once to set the initial height
   calculateImageHeight();
 }
+
+
+
 
 // Function to fetch the latest blog post from WordPress
 function fetchLatestPost() {
@@ -34,7 +74,6 @@ function fetchLatestPost() {
     });
 }
 
-// Function to extract the image URL from the content
 function extractImageFromContent(content) {
   const regex = /<img.+?src=(['"])(.+?)\1/;
   const match = regex.exec(content);
@@ -57,7 +96,6 @@ function calculateImageHeight() {
 
 fetchLatestPost();
 
-// Function to fetch all blog posts from WordPress
 function fetchAllPosts() {
   fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed&per_page=100')
     .then(response => response.json())
@@ -78,15 +116,13 @@ function fetchAllPosts() {
         postLink.href = `blog-specific.html?postId=${post.id}`;
         const postElement = document.createElement('div');
         postElement.classList.add('blog-post');
-      
+
         let featuredImage;
-      
-        // Check if the post has a featured image in _embedded property
+
         if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url) {
           featuredImage = post._embedded['wp:featuredmedia'][0].source_url;
         }
-      
-        // If featured image is not available, extract image URL from content.rendered property using regex
+
         if (!featuredImage && post.content && post.content.rendered) {
           const regex = /<img.*?src=['"](.*?)['"]/;
           const match = regex.exec(post.content.rendered);
@@ -94,14 +130,12 @@ function fetchAllPosts() {
             featuredImage = match[1];
           }
         }
-      
-        // Use a default image if no featured image is available
+
         if (!featuredImage) {
           featuredImage = 'default-image.jpg';
         }
 
-        // Function to limit text excerpt to certain length
-        const excerpt = $(post.excerpt.rendered).text(); 
+        const excerpt = $(post.excerpt.rendered).text();
         const truncatedExcerpt = truncateExcerpt(excerpt, 20);
 
         function truncateExcerpt(excerpt, limit) {
@@ -112,7 +146,7 @@ function fetchAllPosts() {
           }
 
           return excerpt;
-        } 
+        }
 
         postElement.innerHTML = `
         <div class="blog-post-img">
@@ -123,22 +157,28 @@ function fetchAllPosts() {
         </div>
         <h3 class="blog-post-title">${htmlDecode(post.title.rendered)}</h3>
         `;
-      
+
         postLink.appendChild(postElement);
-      
-        // Add the post to the blog post grid
         blogPostsContainer.appendChild(postLink);
+
+        fetch(`https://emilandret.sg-host.com/wp-json/wp/v2/categories?include=${post.categories.join(',')}`)
+          .then(response => response.json())
+          .then(categories => {
+            const categoryButtons = categories.map((category, index) => {
+              return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}">${category.name}</button>`;
+            }).join('');
+
+            const postCategoriesContainer = postElement.querySelector('.post-categories');
+            postCategoriesContainer.innerHTML = categoryButtons;
+          })
+          .catch(error => console.error(error));
       });
 
-      // Trigger a custom event to notify that all blog posts have been added
       document.dispatchEvent(new Event('allPostsAdded'));
     })
     .catch(error => {
-      // Handle any errors
       console.error(error);
     });
 }
-
-
 
 fetchAllPosts();

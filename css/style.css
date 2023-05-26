@@ -47,10 +47,10 @@ main {
 header {
   display: flex;
   background-color: #fff;
-  justify-content: space-between;
   align-items: center;
+  gap: 17vw;
   flex-shrink: 0;
-  height: 70px;
+  height: 75px;
   z-index: 10;
   width: 100%;
   position: fixed;
@@ -58,21 +58,25 @@ header {
 }
 
 .top-logo {
-  height: 90%;
+  height: 95%;
   padding: 5px 0px 5px 0px;
 }
 
 .nav-container {
   display: flex;
   align-items: center;
+
 }
 
 .nav-container ul {
   display: flex;
-  gap: 20px;
+  gap: 5vw;
+  font-weight: 500;
+  font-size: 1.5rem;
 }
 .nav-container ul li a {
   text-decoration: none;
+  padding: 2rem 1rem 2rem 1rem;
   
 }
 
@@ -87,6 +91,10 @@ header {
 }
 
 @media (max-width: 768px) {
+  header {
+    justify-content: space-between;
+  }
+
   .nav-container ul {
     display: none;
   }
@@ -117,10 +125,18 @@ header {
     -webkit-appearance: none;  /* for Safari and Chrome */
     -moz-appearance: none; /* for Firefox */
     appearance: none;  /* the standard syntax */
+
+  }
+  .nav-container ul li {
+    padding: 20px;
+  }
+  .nav-container ul li:hover {
+    background-color: white;
+    color: #black;
+    
   }
 
-  .hamburger-menu,
-  .reveal-button-container a button {
+  .hamburger-menu {
   -webkit-tap-highlight-color: transparent;
 }
 }
@@ -156,9 +172,7 @@ header {
   z-index: 2;
 }
 
-.reveal-button-container {
-  display: none;
-}
+
 
 @media (max-width: 768px) {
 
@@ -179,26 +193,6 @@ header {
   .logo-container img {
     width: 70%;
   }
-
-  .reveal-button-container {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    width: 100px;
-    position: relative;
-    margin: 0px 20px 20px 0px
-    
-  }
-  .reveal-button-container a button {
-
-   background-color: transparent;
-   font-size: 24px;
-   border: none;
-   -webkit-appearance: none;
-   -moz-appearance: none;
-   appearance: none;
-  }
- 
 }
 
 
@@ -310,10 +304,12 @@ header {
 
 .carousel-control.prev {
   left: 0; /* Position the previous button at the left edge of the container */
+  color: black;
 }
 
 .carousel-control.next {
   right: 0; /* Position the next button at the right edge of the container */
+  color: black;
 }
 
 .carousel-control:hover:not(:disabled) {
@@ -500,7 +496,7 @@ header {
   padding: 2rem;
   text-align: center;
   line-height: 1.6;
-  padding-top: 70px;
+  padding-top: 80px;
 }
 
 .newsletter-signup h2 {
@@ -637,7 +633,6 @@ header {
 
   .latest-post-title {
     font-size: 1rem;
-    margin: 0px 20px -20px -10px;
     }
 
     .blog-post-title {
@@ -723,24 +718,54 @@ header {
 
 
 /* Navigation buttons for blog post grid */
-.nav-button {
-  background-color: black;
+.category-button {
   color: white;
   border: none;
   padding: 10px 20px;
-  cursor: pointer;
   font-weight: bold;
   font-size: 14px;
   transition: 0.3s;
 }
-.load-more-button {
-  display: block;
-  margin: 2rem auto;
+
+.category-button.black {
+  background-color: black;
+}
+.category-button.gray {
+  background-color: gray;
+
 }
 
-.nav-button:disabled {
-  background-color: gray;
-  cursor: not-allowed;
+#blog-specific-content {
+}
+
+#blog-specific-content .category-container {
+ margin-bottom: 20px;
+ margin-top: -15px;
+}
+
+.latest-post .category-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+
+
+.load-more-button, button.see-more {
+  display: block;
+  margin: 2rem auto;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 14px;
+  background-color: black;
+  cursor: pointer;
+}
+
+.load-more-button {
+  margin-bottom: 150px;
+  margin-top: -30px;
 }
 
 
@@ -889,18 +914,21 @@ footer img {
   .home-post {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s ease-in-out;
     padding: 40px 20px 40px 20px;
-    gap: 10px;
+    gap: 17px;
+    display: flex;
+    justify-content: center;
 
 
   }
   .home-post a {
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    
-  }
+}
 
   .home-post img {
     width: 40%;
@@ -912,11 +940,7 @@ footer img {
     transform: scale(1.05);
   }
 
-  .home-posts a {
-    display: inline-block;
-    align-self: end;
-  }
-  
+
   .modal-content {
     width: 100%;
   }

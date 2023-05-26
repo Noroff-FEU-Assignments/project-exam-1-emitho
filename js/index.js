@@ -146,29 +146,38 @@ window.addEventListener('DOMContentLoaded', (event) => {
           // Get the home-posts div
           const homePostsDiv = document.getElementById('home-posts');
 
+          // Get the "See more" button
+          const seeMoreButton = document.querySelector(".see-more");
+
+          // Remove the "See more" button temporarily
+          seeMoreButton.remove();
+
           // Create the HTML for each post
           posts.forEach(post => {
               const homePostDiv = document.createElement('div');
               homePostDiv.className = 'home-post';
 
-              const postImageSrc = getImageFromPost(post);  // Call function here
+              const postImageSrc = getImageFromPost(post); 
               const postImage = document.createElement('img');
               postImage.src = postImageSrc;
               postImage.alt = `Blog post ${posts.indexOf(post) + 1}`;
 
-              const postLink = document.createElement('a');  // New link element
+              const postLink = document.createElement('a');  
               postLink.href = `blog-specific.html?postId=${post.id}`;
 
               const postTitle = document.createElement('h3');
-              postTitle.textContent = htmlDecode(post.title.rendered); // Use htmlDecode function
+              postTitle.textContent = htmlDecode(post.title.rendered); 
 
-              postLink.appendChild(postTitle);  // Append the title to the link
+              postLink.appendChild(postTitle); 
               homePostDiv.appendChild(postImage);
-              homePostDiv.appendChild(postLink);  // Append the link to the div
+              homePostDiv.appendChild(postLink);  
 
-              // Add the new post to the home-posts div
+              
               homePostsDiv.appendChild(homePostDiv);
           });
+
+          // Put the "See more" button at the end of home-posts div
+          homePostsDiv.appendChild(seeMoreButton);
       })
       .catch(err => console.log(err));
 });
