@@ -50,7 +50,7 @@ header {
   align-items: center;
   gap: 17vw;
   flex-shrink: 0;
-  height: 75px;
+  height: 80px;
   z-index: 10;
   width: 100%;
   position: fixed;
@@ -58,7 +58,7 @@ header {
 }
 
 .top-logo {
-  height: 95%;
+  height: 90%;
   padding: 5px 0px 5px 0px;
 }
 
@@ -93,6 +93,15 @@ header {
 @media (max-width: 768px) {
   header {
     justify-content: space-between;
+    height: 100px;
+  }
+
+  .top-logo {
+    height: 85%;
+  }
+
+  .newsletter-signup {
+    padding-top: 120px !important;
   }
 
   .nav-container ul {
@@ -102,7 +111,7 @@ header {
   .nav-container ul.show {
     display: flex;
     position: absolute;
-    top: 70px;
+    top: 100px;
     left: 0;
     width: 100%;
     flex-direction: column;
@@ -125,6 +134,8 @@ header {
     -webkit-appearance: none;  /* for Safari and Chrome */
     -moz-appearance: none; /* for Firefox */
     appearance: none;  /* the standard syntax */
+    color: black !important;
+    border: 2px solid #000;
 
   }
   .nav-container ul li {
@@ -496,7 +507,7 @@ header {
   padding: 2rem;
   text-align: center;
   line-height: 1.6;
-  padding-top: 80px;
+  padding-top: 100px;
 }
 
 .newsletter-signup h2 {
@@ -632,7 +643,11 @@ header {
  }
 
   .latest-post-title {
-    font-size: 1rem;
+    position:absolute;
+    margin-bottom: -90px;
+    font-size: 4vw;
+    padding: 0vh 1vw 0vw 2vw;
+    margin-right: 8vw;
     }
 
     .blog-post-title {
@@ -947,10 +962,20 @@ footer img {
  
 }
 
+
 @media (max-width: 900px) {
+
+  .latest-post-title {
+    bottom: 8rem;  
+    left: 1rem;
+    padding: 0vh 1vw 0vw 2vw;
+    margin-right: 4vw;
+
+  }
   .latest-tweet {
     display: none;
   }
+
   footer {
     flex-direction: column;
     height: auto;
