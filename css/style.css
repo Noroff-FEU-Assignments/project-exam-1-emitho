@@ -907,14 +907,19 @@ footer img {
 /* Mobile styles */
 @media (max-width: 768px) {
 
-  button.back-to-blogs {
-    width: 27vw;
+  #blog-specific-content {
+    margin-top: 40px;
   }
+
   button.back-to-blogs {
+    width: 28w;
     font-size: 2vw;
+    margin-top: -50px;
   }
+  
+  
   button.back-to-blogs span {
-    font-size: 2vw;
+    font-size: 3vw;
   }
   button.back-to-blogs:hover {
     background-color: black;
