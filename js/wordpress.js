@@ -156,6 +156,7 @@ function fetchAllPosts() {
           </div>
         </div>
         <h3 class="blog-post-title">${htmlDecode(post.title.rendered)}</h3>
+
         `;
 
         postLink.appendChild(postElement);
