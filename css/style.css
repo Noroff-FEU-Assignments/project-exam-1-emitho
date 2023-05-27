@@ -8,6 +8,7 @@
   padding: 0;
   font-family: monospace;
   line-height: 1.6;
+  text-decoration: none;
 }
 
 body {
@@ -71,12 +72,15 @@ header {
 .nav-container ul {
   display: flex;
   gap: 5vw;
-  font-weight: 500;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 .nav-container ul li a {
   text-decoration: none;
   padding: 2rem 1rem 2rem 1rem;
+  font-weight: 500;
+
+  font-family: Arial, Helvetica, sans-serif;
+
   
 }
 
@@ -366,6 +370,11 @@ header {
 
 }
 
+.contact-card p {
+  font-size: 1.3rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .card-content {
   display: flex;
   align-items: center;
@@ -614,6 +623,7 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+
 }
 
 
@@ -638,14 +648,16 @@ header {
   position: relative;
   background-color: #f9f9f9;
   padding: 1rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0px 6px rgba(0, 0, 0, 0.4);
   overflow: hidden;
+  border-radius: 4px;
 }
 
 .blog-post img {
   width: 100%;
   object-fit: cover;
   transition: all 0.5s ease-in-out;
+  border-radius: 2px;
 }
 .blog-post-img {
   position: relative;
@@ -655,15 +667,22 @@ header {
   position: relative;
   bottom: -0.25rem;
   text-align: center;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: black;
+  padding: 1.5vw;
   transition: all 0.5s ease-in-out;
+}
+
+h3 {
+  text-decoration: none;
+
 }
 
 .blog-post-excerpt {
   color: white;
   margin: 0;
   padding: 1em;
+  font-family: Arial, Helvetica, sans-serif;
   white-space: pre-wrap;
 }
 
@@ -1007,6 +1026,7 @@ footer img {
   }
   .contact-card {
     flex-direction: column;
+    text-align: center;
     padding: 40px;
     margin: 20px;
     gap: 40px;
@@ -1038,7 +1058,7 @@ footer img {
     }
 
     .blog-post-title {
-    font-size: 1rem;
+    font-size: 1.5rem;
     margin-bottom: 1rem;
   }
 
