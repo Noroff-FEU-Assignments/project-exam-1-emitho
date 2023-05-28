@@ -134,8 +134,7 @@ function getImageFromPost(post) {
       return match[1];
   }
 
-  // If no image is found, return a default placeholder image
-  return "path/to/your/default/image.jpg";
+  return "no image";
 }
 
 window.addEventListener('DOMContentLoaded', (event) => {

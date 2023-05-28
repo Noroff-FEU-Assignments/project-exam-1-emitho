@@ -4,11 +4,12 @@ function fetchPostCategories(post) {
     .then(response => response.json())
     .then(categories => {
       return categories.map((category, index) => {
-        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}">${category.name}</button>`;
+        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}" data-category-id="${category.id}" onclick="location.href='blog.html?category=${category.id}'">${category.name}</button>`;
       }).join('');
     })
     .catch(error => console.error(error));
 }
+
 
 // Query string function
 function getQueryStringValue(key) {
@@ -20,16 +21,13 @@ function getQueryStringValue(key) {
 const postId = getQueryStringValue('postId');
 
 function openModal(imageSrc) {
-  // Get the modal
+
   const modal = document.getElementById('myModal');
 
-  // Get the image and insert it inside the modal
   const img = document.getElementById('img01');
 
-  // Use the same src as the clicked image
   img.src = imageSrc;
 
-  // Show the modal
   modal.style.display = "block";
 }
 
@@ -38,7 +36,6 @@ function closeModal() {
   modal.style.display = "none";
 }
 
-// Bind both 'click' and 'touchstart' events to the window for closing the modal
 window.addEventListener('click', function(event) {
   const modal = document.getElementById('myModal');
   if (event.target == modal) {

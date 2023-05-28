@@ -63,6 +63,7 @@ header {
   padding: 5px 0px 5px 0px;
 }
 
+
 .nav-container {
   display: flex;
   align-items: center;
@@ -629,6 +630,14 @@ header {
 
 .latest-post:hover .latest-post-overlay {
   transform: translateY(0);
+}
+
+.category-row {
+  padding-top: 0px;
+  margin-bottom: 20px;
+}
+.category-row button:hover {
+  cursor: pointer;
 }
 
 

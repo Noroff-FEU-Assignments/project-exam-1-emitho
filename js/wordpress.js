@@ -10,11 +10,62 @@ function fetchPostCategories(post) {
     .then(response => response.json())
     .then(categories => {
       const categoryButtons = categories.map((category, index) => {
-        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}">${category.name}</button>`;
+        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}" data-category-id="${category.id}">${category.name}</button>`;
       }).join('');
       return categoryButtons;
     })
     .catch(error => console.error(error));
+}
+
+// Function to fetch all categories
+function fetchAllCategories() {
+  return fetch('https://emilandret.sg-host.com/wp-json/wp/v2/categories')
+    .then(response => response.json())
+    .then(categories => {
+      console.log(categories);
+      // Create a button for all categories
+      let categoryButtons = `<button class="category-button all-categories" data-category-id="">All Categories</button>`;
+      // Iterate over the categories
+      categoryButtons += categories.map((category, index) => {
+        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}" data-category-id="${category.id}">${category.name} (${category.count})</button>`;
+      }).join('');
+      return categoryButtons;
+    })
+    .catch(error => console.error(error));
+}
+
+// Function to fetch posts by category
+function fetchPostsByCategory(categoryId) {
+  fetch(`https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed&per_page=100&categories=${categoryId}`)
+    .then(response => response.json())
+    .then(data => {
+      // Handle the retrieved posts data
+      const blogPostsContainer = document.querySelector('.grid-container');
+
+      // Clear the existing blog posts
+      blogPostsContainer.innerHTML = '';
+
+      // Loop through the posts data and create blog post elements
+      data.forEach((post, index) => {
+        // Same code as in fetchAllPosts
+      });
+
+      // Fetch all categories and create category buttons
+      fetchAllCategories()
+        .then(categoryButtons => {
+          const categoryRow = document.createElement('div');
+          categoryRow.classList.add('category-row');
+          categoryRow.innerHTML = categoryButtons;
+          const blogPostGrid = document.querySelector('.blog-post-grid');
+          blogPostGrid.insertBefore(categoryRow, blogPostGrid.firstChild);
+        })
+        .catch(error => console.error(error));
+
+      document.dispatchEvent(new Event('allPostsAdded'));
+    })
+    .catch(error => {
+      console.error(error);
+    });
 }
 
 // Function to update the latest post section
@@ -49,9 +100,6 @@ function updateLatestPost(latestPost) {
   // Call the function once to set the initial height
   calculateImageHeight();
 }
-
-
-
 
 // Function to fetch the latest blog post from WordPress
 function fetchLatestPost() {
@@ -161,18 +209,6 @@ function fetchAllPosts() {
 
         postLink.appendChild(postElement);
         blogPostsContainer.appendChild(postLink);
-
-        fetch(`https://emilandret.sg-host.com/wp-json/wp/v2/categories?include=${post.categories.join(',')}`)
-          .then(response => response.json())
-          .then(categories => {
-            const categoryButtons = categories.map((category, index) => {
-              return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}">${category.name}</button>`;
-            }).join('');
-
-            const postCategoriesContainer = postElement.querySelector('.post-categories');
-            postCategoriesContainer.innerHTML = categoryButtons;
-          })
-          .catch(error => console.error(error));
       });
 
       document.dispatchEvent(new Event('allPostsAdded'));
@@ -182,4 +218,28 @@ function fetchAllPosts() {
     });
 }
 
+// Fetch all categories and create category buttons
+fetchAllCategories()
+  .then(categoryButtons => {
+    const categoryRow = document.createElement('div');
+    categoryRow.classList.add('category-row');
+    categoryRow.innerHTML = categoryButtons;
+    const blogPostGrid = document.querySelector('.blog-post-grid');
+    blogPostGrid.insertBefore(categoryRow, blogPostGrid.firstChild);
+  })
+  .catch(error => console.error(error));
+
+
 fetchAllPosts();
+
+// Event listener for category buttons
+document.addEventListener('click', function(event) {
+  if (event.target.matches('.category-button')) {
+    const categoryId = event.target.getAttribute('data-category-id');
+    if (categoryId) {
+      fetchPostsByCategory(categoryId);
+    } else {
+      fetchAllPosts();
+    }
+  }
+});
