@@ -10,7 +10,7 @@ function fetchPostCategories(post) {
     .then(response => response.json())
     .then(categories => {
       const categoryButtons = categories.map((category, index) => {
-        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}" data-category-id="${category.id}">${category.name}</button>`;
+        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}" data-category-id="${category.id}" onclick="location.href='blog.html?activeCategory=${category.id}'">${category.name}</button>`;
       }).join('');
       return categoryButtons;
     })
@@ -19,50 +19,52 @@ function fetchPostCategories(post) {
 
 // Function to fetch all categories
 function fetchAllCategories() {
-  return fetch('https://emilandret.sg-host.com/wp-json/wp/v2/categories')
+  // Extract the category ID from the URL
+const urlParams = new URLSearchParams(window.location.search);
+const activeCategoryId = urlParams.get('activeCategory');
+
+// Fetch posts of that category
+if (activeCategoryId) {
+  fetchPostsByCategory(activeCategoryId);
+} else {
+  fetchAllPosts();
+}
+
+
+  return fetch('https://emilandret.sg-host.com/wp-json/wp/v2/categories?per_page=100')
     .then(response => response.json())
     .then(categories => {
-      console.log(categories);
-      // Create a button for all categories
-      let categoryButtons = `<button class="category-button all-categories" data-category-id="">All Categories</button>`;
+      let categoryButtons = `<button class="category-button all-categories ${!activeCategoryId ? 'active' : ''}" data-category-id="" onclick="location.href='blog.html'">All Categories</button>`;
+      let categoryOptions = `<option value="" ${!activeCategoryId ? 'selected' : ''}>All Categories</option>`;
+
       // Iterate over the categories
-      categoryButtons += categories.map((category, index) => {
-        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}" data-category-id="${category.id}">${category.name} (${category.count})</button>`;
-      }).join('');
-      return categoryButtons;
+      categories.forEach((category, index) => {
+        if (category.name.toLowerCase() !== 'uncategorized') { // Exclude the 'uncategorized' category
+          const isActiveCategory = activeCategoryId && activeCategoryId == category.id;
+          categoryButtons += `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'} ${isActiveCategory ? 'active' : ''}" data-category-id="${category.id}" onclick="location.href='blog.html?activeCategory=${category.id}'">${category.name} (${category.count})</button>`;
+          categoryOptions += `<option value="${category.id}" ${isActiveCategory ? 'selected' : ''}>${category.name} (${category.count})</option>`;
+        }
+      });
+
+$(".category-button").click(function(event) {
+  event.stopPropagation();
+  const categoryId = $(this).data("category-id");
+  location.href = `blog.html?activeCategory=${categoryId}`;
+});
+
+
+      return {categoryButtons, categoryOptions};
     })
     .catch(error => console.error(error));
 }
+
+
 
 // Function to fetch posts by category
 function fetchPostsByCategory(categoryId) {
   fetch(`https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed&per_page=100&categories=${categoryId}`)
     .then(response => response.json())
-    .then(data => {
-      // Handle the retrieved posts data
-      const blogPostsContainer = document.querySelector('.grid-container');
-
-      // Clear the existing blog posts
-      blogPostsContainer.innerHTML = '';
-
-      // Loop through the posts data and create blog post elements
-      data.forEach((post, index) => {
-        // Same code as in fetchAllPosts
-      });
-
-      // Fetch all categories and create category buttons
-      fetchAllCategories()
-        .then(categoryButtons => {
-          const categoryRow = document.createElement('div');
-          categoryRow.classList.add('category-row');
-          categoryRow.innerHTML = categoryButtons;
-          const blogPostGrid = document.querySelector('.blog-post-grid');
-          blogPostGrid.insertBefore(categoryRow, blogPostGrid.firstChild);
-        })
-        .catch(error => console.error(error));
-
-      document.dispatchEvent(new Event('allPostsAdded'));
-    })
+    .then(data => handlePostsData(data, false)) // Don't skip any posts
     .catch(error => {
       console.error(error);
     });
@@ -100,6 +102,26 @@ function updateLatestPost(latestPost) {
   // Call the function once to set the initial height
   calculateImageHeight();
 }
+
+document.querySelector('#category-dropdown').addEventListener('change', function(e) {
+  const categoryId = e.target.value;
+  
+  // Remove 'active' class from all category buttons
+  document.querySelectorAll('.category-button').forEach(button => {
+    button.classList.remove('active');
+  });
+  
+  if (categoryId) {
+    fetchPostsByCategory(categoryId);
+  } else {
+    fetchAllPosts();
+    // Add 'active' class to 'All Categories' button
+    document.querySelector('.category-button.all-categories').classList.add('active');
+  }
+});
+
+
+
 
 // Function to fetch the latest blog post from WordPress
 function fetchLatestPost() {
@@ -144,102 +166,116 @@ function calculateImageHeight() {
 
 fetchLatestPost();
 
+// Function to fetch all posts
 function fetchAllPosts() {
   fetch('https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed&per_page=100')
     .then(response => response.json())
-    .then(data => {
-      // Handle the retrieved posts data
-      const blogPostsContainer = document.querySelector('.grid-container');
-
-      // Clear the existing blog posts
-      blogPostsContainer.innerHTML = '';
-
-      fetchLatestPost();
-
-      // Loop through the posts data and create blog post elements
-      data.forEach((post, index) => {
-        if (index === 0) return; // Skip the latest post because it should be shown in latest post element instead
-      
-        const postLink = document.createElement('a');
-        postLink.href = `blog-specific.html?postId=${post.id}`;
-        const postElement = document.createElement('div');
-        postElement.classList.add('blog-post');
-
-        let featuredImage;
-
-        if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url) {
-          featuredImage = post._embedded['wp:featuredmedia'][0].source_url;
-        }
-
-        if (!featuredImage && post.content && post.content.rendered) {
-          const regex = /<img.*?src=['"](.*?)['"]/;
-          const match = regex.exec(post.content.rendered);
-          if (match && match[1]) {
-            featuredImage = match[1];
-          }
-        }
-
-        if (!featuredImage) {
-          featuredImage = 'default-image.jpg';
-        }
-
-        const excerpt = $(post.excerpt.rendered).text();
-        const truncatedExcerpt = truncateExcerpt(excerpt, 20);
-
-        function truncateExcerpt(excerpt, limit) {
-          const words = excerpt.split(' ');
-
-          if (words.length > limit) {
-            return words.slice(0, limit).join(' ') + '...';
-          }
-
-          return excerpt;
-        }
-
-        postElement.innerHTML = `
-        <div class="blog-post-img">
-          <img src="${featuredImage}" alt="Blog Post" />
-          <div class="blog-post-overlay">
-            <p class="blog-post-excerpt">${truncatedExcerpt}</p>
-          </div>
-        </div>
-        <h3 class="blog-post-title">${htmlDecode(post.title.rendered)}</h3>
-
-        `;
-
-        postLink.appendChild(postElement);
-        blogPostsContainer.appendChild(postLink);
-      });
-
-      document.dispatchEvent(new Event('allPostsAdded'));
-    })
+    .then(data => handlePostsData(data, true)) // Skip the first post
     .catch(error => {
       console.error(error);
     });
 }
 
-// Fetch all categories and create category buttons
-fetchAllCategories()
-  .then(categoryButtons => {
-    const categoryRow = document.createElement('div');
-    categoryRow.classList.add('category-row');
-    categoryRow.innerHTML = categoryButtons;
-    const blogPostGrid = document.querySelector('.blog-post-grid');
-    blogPostGrid.insertBefore(categoryRow, blogPostGrid.firstChild);
-  })
-  .catch(error => console.error(error));
+// Handle the retrieved posts data
+// Add a skipFirst parameter, defaulting to false
+function handlePostsData(data, skipFirst = false) {
+  const blogPostsContainer = document.querySelector('.grid-container');
 
+  // Clear the existing blog posts
+  blogPostsContainer.innerHTML = '';
+
+  fetchLatestPost();
+
+  // Loop through the posts data and create blog post elements
+  data.forEach((post, index) => {
+    // Only skip the first post if skipFirst is true
+    if (skipFirst && index === 0) return; 
+
+    const postLink = document.createElement('a');
+    postLink.href = `blog-specific.html?postId=${post.id}`;
+    const postElement = document.createElement('div');
+    postElement.classList.add('blog-post');
+
+    let featuredImage;
+
+    if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0].source_url) {
+      featuredImage = post._embedded['wp:featuredmedia'][0].source_url;
+    }
+
+    if (!featuredImage && post.content && post.content.rendered) {
+      const regex = /<img.*?src=['"](.*?)['"]/;
+      const match = regex.exec(post.content.rendered);
+      if (match && match[1]) {
+        featuredImage = match[1];
+      }
+    }
+
+    if (!featuredImage) {
+      featuredImage = 'default-image.jpg';
+    }
+
+    const excerpt = $(post.excerpt.rendered).text();
+    const truncatedExcerpt = truncateExcerpt(excerpt, 20);
+
+    function truncateExcerpt(excerpt, limit) {
+      const words = excerpt.split(' ');
+
+      if (words.length > limit) {
+        return words.slice(0, limit).join(' ') + '...';
+      }
+
+      return excerpt;
+    }
+
+    postElement.innerHTML = `
+      <div class="blog-post-img">
+        <img src="${featuredImage}" alt="Blog Post" />
+        <div class="blog-post-overlay">
+          <p class="blog-post-excerpt">${truncatedExcerpt}</p>
+        </div>
+      </div>
+      <h3 class="blog-post-title">${htmlDecode(post.title.rendered)}</h3>
+    `;
+
+    postLink.appendChild(postElement);
+    blogPostsContainer.appendChild(postLink);
+  });
+}
 
 fetchAllPosts();
 
-// Event listener for category buttons
-document.addEventListener('click', function(event) {
-  if (event.target.matches('.category-button')) {
-    const categoryId = event.target.getAttribute('data-category-id');
+document.querySelector('.categories-container').addEventListener('click', function(e) {
+  if (e.target && e.target.matches('.category-button')) {
+    const categoryId = e.target.getAttribute('data-category-id');
+
+    // Remove 'active' class from all category buttons
+    document.querySelectorAll('.category-button').forEach(button => {
+      button.classList.remove('active');
+    });
+
+    // Add 'active' class to clicked button
+    e.target.classList.add('active');
+
+    const event = new Event('categoryChanged');
+    document.dispatchEvent(event);
+
     if (categoryId) {
       fetchPostsByCategory(categoryId);
     } else {
       fetchAllPosts();
     }
   }
+});
+
+
+// Inside the 'DOMContentLoaded' event:
+document.addEventListener('DOMContentLoaded', (event) => {
+  fetchAllCategories().then(({categoryButtons, categoryOptions}) => {
+    if (categoryButtons) {
+      document.querySelector('.categories-container').innerHTML = categoryButtons;
+    }
+    if (categoryOptions) {
+      document.querySelector('#category-dropdown').innerHTML = categoryOptions;
+    }
+  });
 });

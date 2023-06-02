@@ -7,7 +7,7 @@
     <script defer src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script defer src="js/common.js"></script>
     <script defer src="js/blog.js"></script>
-    <script src="js/wordpress.js"></script>
+    <script defer src="js/wordpress.js"></script>
 
     <link
       rel="stylesheet"
@@ -69,12 +69,19 @@
       <h2 class="latest-post-title"></h2>
     </a>
     <div id="blog-posts-wrapper">
+      <!-- Categories container -->
+      <div class="categories-container">
+        <select id="category-dropdown" class="category-dropdown-mobile">
+          <!-- Options will be inserted here -->
+        </select>
+      </div>
       <section class="blog-post-grid">
         <div class="grid-container"></div>
         <div id="pagination-container"></div>
         <button class="load-more-button nav-button">Show more posts</button>
       </section>
     </div>
+
     <footer>
       <a href="https://pay.bbw.sv/sovereignhorizon"
         ><p style="font-size: large; font-weight: 900">

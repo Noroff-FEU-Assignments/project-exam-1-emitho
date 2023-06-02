@@ -3,6 +3,8 @@ $(document).ready(function () {
   let currentPostIndex = 0;
   const postsPerPage = 12;
 
+  
+
   document.addEventListener('allPostsAdded', function () {
     blogPosts = $(".blog-post");
     initialize();
@@ -28,6 +30,12 @@ $(document).ready(function () {
     blogPosts.hide();
     showPosts(postsPerPage);
   }
+
+  document.addEventListener('categoryChanged', function () {
+    blogPosts = $(".blog-post");
+    currentPostIndex = 0; // Reset to the first post
+    initialize(); // Re-initialize
+  });
 
   $(".load-more-button").on("click", function () {
     showPosts(postsPerPage);
