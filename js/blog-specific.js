@@ -4,7 +4,7 @@ function fetchPostCategories(post) {
     .then(response => response.json())
     .then(categories => {
       return categories.map((category, index) => {
-        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}" data-category-id="${category.id}" onclick="location.href='blog.html?category=${category.id}'">${category.name}</button>`;
+        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}" data-category-id="${category.id}" onclick="location.href='blog.html?activeCategory=${category.id}'">${category.name}</button>`;
       }).join('');
     })
     .catch(error => console.error(error));

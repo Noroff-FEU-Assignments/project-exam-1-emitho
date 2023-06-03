@@ -1,16 +1,9 @@
 $(document).ready(function () {
-  let blogPosts;
   let currentPostIndex = 0;
   const postsPerPage = 12;
 
-  
-
-  document.addEventListener('allPostsAdded', function () {
-    blogPosts = $(".blog-post");
-    initialize();
-  });
-
   function showPosts(count) {
+    const blogPosts = $(".blog-post");
     const nextPosts = blogPosts.slice(currentPostIndex, currentPostIndex + count);
     console.log('Next posts to show: ', nextPosts.length);
     if (nextPosts.length === 0) {
@@ -21,18 +14,28 @@ $(document).ready(function () {
     nextPosts.fadeIn().css("display", "grid");
     currentPostIndex += count;
   
-    if (currentPostIndex >= blogPosts.length) {
+    // Check if there are less posts left than the postsPerPage, if so, hide the button
+    if (blogPosts.slice(currentPostIndex).length < postsPerPage) {
       $(".load-more-button").hide();
+    } else {
+      $(".load-more-button").show();
+    }
+}
+
+
+  function initialize() {
+    const blogPosts = $(".blog-post");
+    blogPosts.hide();
+    showPosts(postsPerPage);
+  
+    if (blogPosts.length <= postsPerPage) {
+      $(".load-more-button").hide();
+    } else {
+      $(".load-more-button").show();
     }
   }
 
-  function initialize() {
-    blogPosts.hide();
-    showPosts(postsPerPage);
-  }
-
-  document.addEventListener('categoryChanged', function () {
-    blogPosts = $(".blog-post");
+  document.addEventListener('postsLoaded', function () {
     currentPostIndex = 0; // Reset to the first post
     initialize(); // Re-initialize
   });
@@ -40,4 +43,7 @@ $(document).ready(function () {
   $(".load-more-button").on("click", function () {
     showPosts(postsPerPage);
   });
+
+  // Call initialize function once document is ready
+  initialize();
 });

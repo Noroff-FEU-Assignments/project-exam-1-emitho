@@ -49,7 +49,7 @@ header {
   display: flex;
   background-color: #fff;
   align-items: center;
-  gap: 17vw;
+  justify-content: center;
   flex-shrink: 0;
   height: 80px;
   z-index: 10;
@@ -61,12 +61,16 @@ header {
 .top-logo {
   height: 90%;
   padding: 5px 0px 5px 0px;
+  position: absolute;
+  left: 0;
+  margin-left: 10px;
 }
 
 
 .nav-container {
   display: flex;
   align-items: center;
+  margin-left: 0px;
 
 }
 
@@ -126,6 +130,8 @@ header {
   }
   .hamburger-menu {
     font-size: 24px;
+    position: absolute;
+    right: 0;
     padding: 10px;
     margin-right: 25px;
     color: none;
@@ -744,6 +750,7 @@ h3 {
   color: white;
   border: none;
   padding: 10px 20px;
+ 
   font-weight: bold;
   font-size: 14px;
   transition: 0.3s;

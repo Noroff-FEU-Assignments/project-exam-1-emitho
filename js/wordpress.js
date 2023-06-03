@@ -10,7 +10,12 @@ function fetchPostCategories(post) {
     .then(response => response.json())
     .then(categories => {
       const categoryButtons = categories.map((category, index) => {
-        return `<button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}" data-category-id="${category.id}" onclick="location.href='blog.html?activeCategory=${category.id}'">${category.name}</button>`;
+        return `
+          <button class="category-button ${index % 2 === 0 ? 'black' : 'gray'}" 
+                  data-category-id="${category.id}"
+                  onclick="event.stopPropagation(); location.href='blog.html?activeCategory=${category.id}'">
+            ${category.name}
+          </button>`;
       }).join('');
       return categoryButtons;
     })
@@ -20,16 +25,15 @@ function fetchPostCategories(post) {
 // Function to fetch all categories
 function fetchAllCategories() {
   // Extract the category ID from the URL
-const urlParams = new URLSearchParams(window.location.search);
-const activeCategoryId = urlParams.get('activeCategory');
+  const urlParams = new URLSearchParams(window.location.search);
+  const activeCategoryId = urlParams.get('activeCategory');
 
-// Fetch posts of that category
-if (activeCategoryId) {
-  fetchPostsByCategory(activeCategoryId);
-} else {
-  fetchAllPosts();
-}
-
+  // Fetch posts of that category
+  if (activeCategoryId) {
+    fetchPostsByCategory(activeCategoryId);
+  } else {
+    fetchAllPosts();
+  }
 
   return fetch('https://emilandret.sg-host.com/wp-json/wp/v2/categories?per_page=100')
     .then(response => response.json())
@@ -37,7 +41,7 @@ if (activeCategoryId) {
       let categoryButtons = `<button class="category-button all-categories ${!activeCategoryId ? 'active' : ''}" data-category-id="" onclick="location.href='blog.html'">All Categories</button>`;
       let categoryOptions = `<option value="" ${!activeCategoryId ? 'selected' : ''}>All Categories</option>`;
 
-      // Iterate over the categories
+     
       categories.forEach((category, index) => {
         if (category.name.toLowerCase() !== 'uncategorized') { // Exclude the 'uncategorized' category
           const isActiveCategory = activeCategoryId && activeCategoryId == category.id;
@@ -46,21 +50,17 @@ if (activeCategoryId) {
         }
       });
 
-$(".category-button").click(function(event) {
-  event.stopPropagation();
-  const categoryId = $(this).data("category-id");
-  location.href = `blog.html?activeCategory=${categoryId}`;
-});
-
+      $(".category-button").click(function(event) {
+        event.stopPropagation();
+        const categoryId = $(this).data("category-id");
+        location.href = `blog.html?activeCategory=${categoryId}`;
+      });
 
       return {categoryButtons, categoryOptions};
     })
     .catch(error => console.error(error));
 }
 
-
-
-// Function to fetch posts by category
 function fetchPostsByCategory(categoryId) {
   fetch(`https://emilandret.sg-host.com/wp-json/wp/v2/posts?_embed&per_page=100&categories=${categoryId}`)
     .then(response => response.json())
@@ -70,7 +70,6 @@ function fetchPostsByCategory(categoryId) {
     });
 }
 
-// Function to update the latest post section
 function updateLatestPost(latestPost) {
   const latestPostContainer = document.querySelector('.latest-post');
   const latestPostImg = latestPostContainer.querySelector('.latest-post-img img');
@@ -92,7 +91,6 @@ function updateLatestPost(latestPost) {
           newCategoryContainer.classList.add('category-container');
           newCategoryContainer.innerHTML = categoryButtons;
         
-          // Get the 'latest-post-overlay' div and append the categories to it
           const overlayContainer = latestPostContainer.querySelector('.latest-post-overlay');
           overlayContainer.appendChild(newCategoryContainer);
         }
@@ -119,9 +117,6 @@ document.querySelector('#category-dropdown').addEventListener('change', function
     document.querySelector('.category-button.all-categories').classList.add('active');
   }
 });
-
-
-
 
 // Function to fetch the latest blog post from WordPress
 function fetchLatestPost() {
@@ -176,15 +171,12 @@ function fetchAllPosts() {
     });
 }
 
-// Handle the retrieved posts data
-// Add a skipFirst parameter, defaulting to false
+// Handle the retrieved posts data, skipFirst parameter defaulting to false
 function handlePostsData(data, skipFirst = false) {
   const blogPostsContainer = document.querySelector('.grid-container');
 
   // Clear the existing blog posts
   blogPostsContainer.innerHTML = '';
-
-  fetchLatestPost();
 
   // Loop through the posts data and create blog post elements
   data.forEach((post, index) => {
@@ -240,6 +232,9 @@ function handlePostsData(data, skipFirst = false) {
     postLink.appendChild(postElement);
     blogPostsContainer.appendChild(postLink);
   });
+  // Dispatch the 'postsLoaded' event
+  const event = new Event('postsLoaded');
+  document.dispatchEvent(event);
 }
 
 fetchAllPosts();
@@ -268,7 +263,6 @@ document.querySelector('.categories-container').addEventListener('click', functi
 });
 
 
-// Inside the 'DOMContentLoaded' event:
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchAllCategories().then(({categoryButtons, categoryOptions}) => {
     if (categoryButtons) {
