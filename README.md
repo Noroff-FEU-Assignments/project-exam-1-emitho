@@ -2,24 +2,31 @@
 
 ![image](images/Screen%20Shot%202023-06-05%20at%2010.49.46.png)
 
-This is just a test to see if I can pull this README thing off
+Sovereign Horizon is the developer's personal brand. This blog site showcases his web design preferences and flavors well.
+
 
 ## Description
 
-Add a more detailed description of what your project entails and set out to do.
+This blog site works by fetching content from a headless content management system. It showcases previews automatically throughout the website based on certain parameters in the content that gets added to a Wordpress admin panel:
 
-You can add some bullet points if you'd like to:
+- Carousel track element on home page fetches all blog posts (image + title) in chronological order and showcases four clickable post previews elegantly. Using the arrows on either side of the track reveals the next/previous four posts.
 
-- List item 1
-- List item 2
-- List item 3
+- Blog page showcases a latest post element on top, formatted as a large hero image. Hovering over the element darkens the image and activates an overlay which brings a 20 word blog-text excerpt into view over the image. 
+
+Underneath the Latest Post element is the Blog Posts Grid which lists and previews every blog post (except for the latest post). Hovering over these blog post grid cards works in the same way as the Latest Post Element; revealing a text excerpt. 
+
+- The site will fetch all categories for all posts in Wordpess and automatically create or remove Category Buttons which can be found 1. in the Category Filter element between the Latest Post Element and Blog Posts Grid on the Blog Page, and 2. on each Blog Specific Page. Clicking on a Category Button will bring you to a filtered Blog Page view based on the Category Button that was clicked. 
+
+When filtering by Category, the latest blog posts will be included in the results but will be skipped when 'All Categories' is active (which it is by default).
+
 
 ## Built With
 
-You can list a the tech stack that you've used over here
+- HTML
+- CSS
+- Javascript
+- Wordpress REST API
 
-- [React.js](https://reactjs.org/)
-- [Bootstrap](https://getbootstrap.com)
 
 ## Getting Started
 
@@ -27,44 +34,19 @@ You can list a the tech stack that you've used over here
 
 This is where you list how to get the project started. It typically just includes telling a person to clone the repo and then to install the dependencies e.g.
 
-1. Clone the repo:
+Clone the repo:
 
 ```bash
-git clone git@github.com:NoroffFEU/portfolio-1-example.git
+git clone git@github.com:Noroff-FEU-Assignments/project-exam-1-emitho.git
 ```
 
-2. Install the dependencies:
-
-```
-npm install
-```
-
-### Running
-
-Here is where you detail how to run the app. It typically involves the commands you'd need to run to start the project e.g.
-
-To run the app, run the following commands:
-
-```bash
-npm run start
-```
 
 ## Contributing
 
-Here you can detail any information you want to provide regarding contributing to the project. For big projects you will usually have a separate `CONTRIBUTING.md` and link to it, but for smaller projects you can simply include instructions here. These instructions can simply detail the process you want a person to take, such as to make sure to open a pull request so code can be reviewed.
+Feel free to make amendmends to design and code. Please do a pull request so the code can be reviewed.
 
 ## Contact
 
-This is where you can leave your social links for people to contact you, such as a LinkedIn profile or Twitter link e.g.
+[Twitter](www.twitter.com/SovereignHRZN)
+[Mail](mailto:hello@sovereignhorizon.com)
 
-[My Twitter page](www.twitter.com)
-
-[My LinkedIn page](www.linkedin.com)
-
-## License
-
-You can link to your license file here if you're using one, or mention what license the codebase falls under. If you're unsure then you can simply delete this section.
-
-## Acknowledgments
-
-This is where you can add any acknowledgements if you'd like, such as to people who have helped you or any code snippets you'd like to mention. You can delete this section if you don't have any acknowledgements to make.
